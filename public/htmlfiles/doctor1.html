@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<script>
+	var doctor_id;
+	window.onload=function(){
+		//doctor_id=sessionStorage.getItem("doctor_id");
+		doctor_id=1;
+		alert(doctor_id);
+	}
+
+	$.ajax({
+        type: 'POST',
+        data: JSON.stringify(doctor_id),
+        contentType: "application/json",
+        dataType:'json',
+        url: '/doctor_profile',                  
+        success: function(response){
+
+        
+    },
+        error: function(error) {
+            console.log(error);
+         }
+    });
+</script>
+<label>doctor_id<label>
+</html>
