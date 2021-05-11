@@ -1,0 +1,160 @@
+.fa {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  font-size: 25px;
+  width: 45px;height:45px;
+  text-align: center;
+  text-decoration: none;
+}
+
+.fa:hover {
+    opacity: 0.7;
+}
+
+.fa-facebook {
+  background: #3B5998;
+  color: white;
+}
+
+.fa-twitter {
+  background: #55ACEE;
+  color: white;
+}
+
+.fa-instagram {
+  background: #125688;
+  color: white;
+}
+  body, html {
+  height: 100%;
+  margin: 0;
+  font-family: Arial;
+}
+.containerf {
+  display: flex;
+}
+.containerf > div {
+  flex: 1; /*grow*/
+}
+  footer {
+  background-color: #4b9ff2;
+  
+  padding: 2px;
+  text-align: left;
+  font-size: 15px;
+  width:100%;
+
+  min-height: 150px;
+  display:inline-block
+}
+.searchbtn{
+  width:150px;
+  height:35px;
+  color: white;
+  background-color: #4b9ff2;
+  border:none;
+}
+tr.spaceUnder>td {
+  padding-bottom: 4em;
+}
+
+.blank_row
+{
+    height: 10px;
+    background-color: #FFFFFF;
+}
+table {
+  border:none;
+}
+
+section.left {width: 75%;float: left;padding-top: 150px;padding-right: 0px;}
+section.right {width: 25%;float: right;padding-left: 2px;}
+body {font-family: Arial;}
+
+/* Style the tab */
+.tab {
+  overflow: hidden;
+  border: 2px solid #ccc;
+  background-color: #4b9ff2;
+}
+
+/* Style the buttons inside the tab */
+.tablinks {
+  background-color: inherit;
+  float: center;
+  outline: none;
+  cursor: pointer;
+  padding: 3px 5px ;
+  transition: 0.3s;
+  font-size: 17px;
+  color:white;
+  border:none;
+}
+
+/* Style the labels inside the tab */
+.tab label {
+  background-color: inherit;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  transition: 0.3s;
+  font-size: 17px;
+  color:white;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+  background-color: #2C5DC6;
+}
+#Home {background-color: white;}
+#HealthNews {background-color: white;}
+/* Create an active/current tablink class 
+.tab button.active {
+  background-color: #6D9AFC;
+}*/
+* {box-sizing: border-box}
+/* Style the tab content */
+.tabcontent {
+  display: inline-block;
+  padding: 0px 0px;
+  /*border: 1px solid #ccc;*/
+
+} 
+.bestdoc{
+  background-color: white;
+}  
+a{
+
+  cursor: pointer;
+}
+span.stars, span.stars span {
+    display: block;
+    background: url(static/images/stars.png) 0 -16px repeat-x;
+    width: 80px;
+    height: 16px;
+}
+span.stars span {
+    background-position: 0 0;
+}
+
+span.sstars, span.sstars span {
+    display: block;
+    background: url(static/images/stars.png) 0 -16px repeat-x;
+    width: 80px;
+    height: 16px;
+}
+
+span.sstars span {
+    background-position: 0 0;
+}
+
+/*map display*/
+/* Set the size of the div element that contains the map */
+      #map {
+        height: 100%;
+      }
+  [data-href] {
+    cursor: pointer;
+}
