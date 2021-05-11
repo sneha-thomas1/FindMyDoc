@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+     <title>FindMyDoc website</title>
+
+     <meta charset="UTF-8">
+     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+     <meta name="description" content="">
+     <meta name="keywords" content="">
+     <meta name="author" content="Tooplate">
+     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+     
+     <link rel="shortcut icon" href="images/logo.ico">
+     <link rel="stylesheet" href="css/bootstrap.min.css">
+     <link rel="stylesheet" href="css/font-awesome.min.css">
+     <link rel="stylesheet" href="css/animate.css">
+     <link rel="stylesheet" href="css/owl.carousel.css">
+     <link rel="stylesheet" href="css/owl.theme.default.min.css">
+
+     <!-- MAIN CSS -->
+     <link rel="stylesheet" href="css/tooplate-style.css">
+     <link rel="stylesheet" href="fonts/material-design-iconic-font/css/material-design-iconic-font.min.css">
+     <link rel="stylesheet" href="css/style_search.css">
+<style>
+     span.stars, span.stars span {
+         display: block;
+         background: url(../images/stars.png) 0 -16px repeat-x;
+         width: 80px;
+         height: 16px;
+     }
+     span.stars span {
+         background-position: 0 0;
+     }
+     span.sstars, span.sstars span {
+         display: block;
+         background: url(../images/stars.png) 0 -16px repeat-x;
+         width: 80px;
+         height: 16px;
+     }
+     span.sstars span {
+         background-position: 0 0;
+     }
+     #search_tab {
+      background-color: #F5F5F5;
+    }
+[data-href] {
+    cursor: pointer;
+}
+
+</style>
+</head>
+<body id="top" data-spy="scroll" data-target=".navbar-collapse" data-offset="50">
+
+     <!-- PRE LOADER -->
+     <section class="preloader">
+          <div class="spinner">
+               <span class="spinner-rotate"></span>               
+          </div>
+     </section>
+
+     <div id="header"></div>
+
+     <!-- HOME -->
+     <!-- ABOUT -->
+     <section id="search_tab" >
+          <div class="container">
+               <div class="row">
+                    <div class="col-md-6 col-sm-6">                           
+                         <div class="inner" id="doc_search_box" border-style: solid;>
+                              <div class="container register-form">
+                                  <div class="form">
+                                      <div class="form-content">
+                                        <div class="row">
+                                             <div class="col-md-6">
+                                                  <h3>Quick Search</h3>
+                                             </div>
+                                           </div>
+                                          <div class="row">
+                                              <div class="col-md-3">
+                                                  <div class="form-group">
+                                                      <select name="speciality" id="speciality" class="form-control" placeholder="Speciality">
+                                                            </select>
+                                                  </div>
+                                                  <div class="form-group">
+                                                            <input type="text" class="form-control" placeholder="Doctor Name" name="docname" id="docname">
+                                                  </div>
+                                              </div>
+                                              <div class="col-md-3">
+                                                  <div class="form-group">
+                                                      <select name="gender" id="gender" class="form-control" placeholder="Gender">
+                                                                 <option value="All">Gender-All</option>
+                                                                 <option value="Male">Male</option>
+                                                                 <option value="Female">Female</option>
+                                                            </select>
+                                                  </div>
+                                                  <div class="form-group">
+                                                            <input type="text" class="form-control" placeholder="ZipCode" name="zipcode" id="zipcode">
+                                                  </div>
+                                              </div>
+                                          </div>
+                                        <div class="row">
+                                             <div class="col-md-6">
+                                                  <button id="searchbtn" type="button" class="btn-success" onclick="searchResults()"></button>
+                                             </div>
+                                           </div>
+                                      </div>
+                                  </div>
+                              </div>
+                         </div>
+                    </div>                    
+               </div>
+               <div class="row">
+                    <div class="col-md-5 col-sm-5">                           
+                         <div class="docsearchresults"  id="docsearchresults" align="left">
+                         </div>
+                    </div>
+                    <div class="col-md-7 col-sm-7" style="height:500px">                           
+                         <div id="map" style="padding-top: 10; height:100%"></div>
+                    </div>    
+               </div>                         
+          </div>
+     </section>
+
+     <!-- FOOTER -->
+     <div id="footer"></div>
+
+     <!-- SCRIPTS -->
+     <script src="js/jquery.js"></script>
+     <script src="js/bootstrap.min.js"></script>
+     <script src="js/jquery.sticky.js"></script>
+     <script src="js/jquery.stellar.min.js"></script>
+     <script src="js/wow.min.js"></script>
+     <script src="js/smoothscroll.js"></script>
+     <script src="js/owl.carousel.min.js"></script>
+     <script src="js/custom.js"></script>
+
+     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCdcra4ZrZCoaVmhQmQSIFQ790RPG4cyTA"></script>
+     <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+     <script src="https://unpkg.com/@google/markerclustererplus@4.0.1/dist/markerclustererplus.min.js"></script>
+     <script>
+          function getParameterByName(name, url = window.location.href) {
+              name = name.replace(/[\[\]]/g, '\\$&');
+              var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+                  results = regex.exec(url);
+              if (!results) return null;
+              if (!results[2]) return '';
+              return decodeURIComponent(results[2].replace(/\+/g, ' '));
+          }
+          var specURLVal = "";
+          var isQueryStringPresent = false;
+          $(document).ready(function(){
+            //$("#doc_search_box").load("doctor_search_box.html"); 
+            $("#header").load("header.html"); 
+            $("#footer").load("footer.html");
+
+            sessionStorage.removeItem('location');
+            sessionStorage.removeItem('doctor_id');
+            changeLanguage();
+            geoFindMe();
+            var latitude=sessionStorage.getItem('latitude');
+            var longitude=sessionStorage.getItem('longitude');
+            origin1=new google.maps.LatLng(latitude,longitude);
+
+            var docNameVal = getParameterByName('docnameval');
+            specURLVal = getParameterByName('specialityval');
+            var genderVal = getParameterByName('genderVal');
+            var zipVal = getParameterByName('zipcodeval');
+
+            if(docNameVal)
+            {
+              console.log("docVal="+docNameVal);
+              document.getElementById('docname').value = docNameVal;
+            }
+            if(genderVal)
+            {
+              console.log("gender="+genderVal);
+              document.getElementById('gender').value = genderVal;
+            }
+            if(zipVal)
+            {
+              console.log("zip="+zipVal);
+              document.getElementById('zipcode').value = zipVal;
+            }
+            if(docNameVal||genderVal||zipVal||specURLVal)
+            {
+              isQueryStringPresent = true;
+            }
+            doctorSpeciality();
+          })
+
+          function doctorSpeciality(){
+               $.ajax({
+                    type: 'GET',
+                    url: '/doctorspeciality',                  
+                    success: function(response){
+                    if(response.length > 0){
+                         var allstr='';
+                         var str='';
+                         allstr+='<option value="All" selected>Speciality-All</option>';
+                         for(let index = 0; index < response.length; index++) {
+                              str+='<option value="'+response[index].speciality+'">'+response[index].speciality+'</option>';} 
+                         /*$("#bdspeciality").empty();
+                         $("#bdspeciality").append(str);
+                         bestDoctors();*/
+                         allstr+=str;
+                         console.log(allstr);
+                         $("#speciality").empty();
+                         $("#speciality").append(allstr);
+                         if(specURLVal)
+                         {
+                           console.log(specURLVal);
+                           document.getElementById('speciality').value = specURLVal;
+                         }
+                         if(isQueryStringPresent)
+                          searchResults();
+                         }
+                    },
+                    error: function(error) {
+                         console.log(error);
+                   }
+              });
+          }
+
+          function calcRoute(lat1, lon1, lat2, lon2) {
+          var directionsService = new google.maps.DirectionsService();
+          var start = new google.maps.LatLng(lat1, lon1);
+          var end = new google.maps.LatLng(lat2, lon2);
+          var request = {
+               origin: start,
+               destination: end,
+               travelMode: 'DRIVING'
+          };
+          var directionsService = new google.maps.DirectionsService();
+          var directionsRenderer = new google.maps.DirectionsRenderer();
+          var chicago = new google.maps.LatLng(41.850033, -87.6500523);
+          var mapOptions = {
+               zoom:7,
+               center: chicago
+          }
+          var map = new google.maps.Map(document.getElementById('map'), mapOptions);
+          directionsRenderer.setMap(map);
+          directionsService.route(request, function(result, status) {
+          if (status == 'OK') {
+           directionsRenderer.setDirections(result);
+          }
+          });
+          }
+
+     function openPage(pageName,elmnt) {
+       var i, tabcontent, tablinks;
+       tabcontent = document.getElementsByClassName("tabcontent");
+       for (i = 0; i < tabcontent.length; i++) {
+         tabcontent[i].style.display = "none";
+       }
+       tablinks = document.getElementsByClassName("tablinks");
+       for (i = 0; i < tablinks.length; i++) {
+         tablinks[i].className = tablinks[i].className.replace(" active", "");
+       }
+       document.getElementById(pageName).style.display = "block";
+       elmnt.currentTarget.className += " active";
+       
+     }
+
+
+
+var pageNum=1;
+function searchResults(){
+  document.getElementById('docsearchresults').innerHTML='';
+  var data ={};
+    console.log("inside function");
+    data.docname=$('#docname').val();
+    data.speciality=$('#speciality').val();
+    data.zipcode=$('#zipcode').val();
+    data.gender=$('#gender').val();
+    $.ajax({
+        type: 'POST',
+        data: JSON.stringify(data),
+        contentType: "application/json",
+        dataType:'json',
+        url: '/getdoctordetails?'+ $.param({ page: pageNum }),    
+        success: function(response){
+          console.log(response);
+          responselength=Object.keys(response).length;
+          //alert(responselength);
+          locations = [];
+       if(responselength > 1){
+         //alert(response["pagination"].totalrows);
+        window.docsearchdetails=response;
+
+        for(let count = 0; count < (responselength-1); count++) {
+        loc = {lat: response[count].latitude, lng: response[count].longitude};
+              locations.push(loc);
+          }
+        var distanceArray;
+        //console.log("First index val: "+locations[0].lat);
+        //console.log("Origin; "+origin1)
+        sessionStorage.setItem('location',locations);
+        const service = new google.maps.DistanceMatrixService();
+        service.getDistanceMatrix(
+          {
+            origins: [origin1],
+            destinations: locations,
+            travelMode: google.maps.TravelMode.DRIVING,
+            unitSystem: google.maps.UnitSystem.METRIC,
+            avoidHighways: false,
+            avoidTolls: false,
+          },
+
+          (distResp, distStatus) => {
+            if (distStatus !== "OK") {
+              //alert("Error was: " + distStatus);
+            } else {
+                distanceArray=distResp.rows[0].elements;
+                //alert(distanceArray);
+                sessionStorage.setItem('distanceArray',JSON.stringify(distanceArray));
+                var str='';
+                str+='<label style="font-size: 25px;">Search results</label>&nbsp&nbsp&nbsp<a href="javascript:initMap()">Show in Map</a>&nbsp&nbsp&nbsp<a id="clearsearch" style="border-left:solid;padding-left: 5px;" href="javascript:clearSelection();">Clear Search</a><div class="docdetails"><table id="doctorlist" style="width: 100%;"><tbody><tr><td align="left">';
+                if(pageNum!=1){
+                str+='<a href="javascript:prevPage();">Prev</a>&nbsp&nbsp';};
+                if (response["pagination"].next != null){
+                str+='<a href="javascript:nextPage();">Next</a>';}
+                str+='</td><td align="right">Showing ';
+                str+=response["pagination"].current*response["pagination"].perPage-4+' to ';
+                lastrow=response["pagination"].current*response["pagination"].perPage;
+                 if(lastrow>response["pagination"].totalrows){
+                str+=response["pagination"].totalrows;
+              }
+              else{
+                str+=response["pagination"].current*response["pagination"].perPage;
+              }
+                str+=' of '+response["pagination"].totalrows+' entries</td></tr>';
+                for(let index = 0; index < (responselength-1); index++) {
+                  str+='<tr style="border:ridge;" data-href="doctor_profile.html?id='+response[index].doctor_id;
+                  //doc_image=response[index].doctor_photo;
+                  str+='"><td>';
+                    //alert(typeof(response[index].doctor_photo));
+                    if(!response[index].doctor_photo){
+                      //alert("image");
+                    str+='<img style="padding-top: 2px;" src="images/default.jpg" type="image/jpg" width= "100" height="90">';
+                    }
+                    else{
+
+                    console.log('Base64 String - ', response[index].doctor_photo);
+  
+                    //data:image/png;base64,
+                    str+='<img style="padding-top: 2px;" src="data:image/png;base64,'+response[index].doctor_photo+'" type="image/png" width= "100" height="90">';
+                    }
+                    str+='</td><td><div class="docname"><b>'+response[index].docname+'</b></div><div class="docplace"><span id="placename">'+response[index].docplace+'</span></div><div class="distance"><span id="distance">'+calculatemiles(distanceArray[index].distance.text)+',</span>&nbsp<span>'+distanceArray[index].duration.text+'</span></div><b><div class="docrating"  id="searchdocrating"><span class="rating" style="display: inline-block">';
+                  if (!response[index].rating){
+                  str+='0';}
+                  else{
+                  str+=response[index].rating;
+                  }
+                str+='&nbsp&nbsp</span><span class="sstars" style="display: inline-block">';
+                if (!response[index].rating){
+                  str+='0';}
+                  else{
+                  str+=response[index].rating;
+                  }
+                  str+='</span><span class="reviewcount" style="display: inline-block;">&nbsp(';
+                  if (!response[index].reviewcount){
+                  str+='0';}
+                  else{
+                  str+=response[index].reviewcount;
+                  }
+                  str+=')</span></div></td></tr>';
+      }  
+      str+='</tbody></table></div>';
+      document.getElementById('docsearchresults').innerHTML+=str;
+      checkContainer();
+      
+                }
+              }
+        );
+
+}
+else{
+  //alert("no records");
+  var str='';
+                str+='<label style="font-size: 15px;">Your search did not return any result.</label>';
+                document.getElementById('docsearchresults').innerHTML+=str;
+}
+
+
+    },
+        error: function(error) {
+            console.log(error);
+         }
+    });
+  
+}
+
+
+//pagination
+function nextPage(){
+  pageNum+=1;
+  searchResults();
+}
+
+function prevPage(){
+  pageNum-=1;
+  searchResults();
+}
+
+
+function calculatemiles(kilomet){
+const milesfactor = 0.621371;
+            var val=parseInt(kilomet.slice(0,-3).replace(",", ""));
+            miles=(val*milesfactor).toFixed(2);
+            miles=miles+" mi";
+            return miles;
+}
+
+function bestDoctors(){
+  var data ={};
+  data.speciality=$('#bdspeciality').val();
+    $.ajax({
+        type: 'POST',
+        data: JSON.stringify(data),
+        contentType: "application/json",
+        dataType:'json',
+        url: '/bestDoctors',                  
+        success: function(response){
+//alert("bd response");
+          var str='';
+          $("#bestdoctortable").empty();
+          responselength=Object.keys(response).length;
+       if(responselength > 0){
+        //alert("bd response length");
+          for(let index = 0; index < responselength; index++) {
+           // alert("best doctors");
+            str+='<tr  style="border:ridge;" data-href="doctor_profile.html?id='+response[index].doctor_id;
+            str+='"><td>';
+              if(!response[index].doctor_photo){
+                str+='<img style="padding-top: 2px;" src="images/default.jpg" type="image/jpg" width= "100" height="90">';
+                }
+                else{
+                  console.log('Base64 String - ', response[index].doctor_photo);
+                  //data:image/png;base64,
+                  str+='<img style="padding-top: 2px;" src="data:image/png;base64,"'+response[index].doctor_photo+'" type="image/png" width= "100" height="90">';
+                  }
+            str+='</td><td><div class="docname"><b>'+response[index].docname+'</b></div><div class="docplace"><span id="placename">'+response[index].placename+'</span></div><div class="bdocrating" id="bdocrating"><span class="rating" style="display:inline-block">'+response[index].rating+'&nbsp&nbsp</span><span class="stars" style="display: inline-block">'+response[index].rating+'</span><span class="reviewcount" style="display: inline-block;">&nbsp('+response[index].reviewcount+')</span></div></td></tr>';
+}  
+
+$("#bestdoctortable").append(str);
+checkbdContainer();
+
+}
+    },
+        error: function(error) {
+            console.log(error);
+         }
+    });
+  
+}
+
+function checkbdContainer(){
+
+    $('span.stars').stars();
+    $('*[data-href]').on('click', function() {
+        position=$(this).data("href").indexOf('?');
+      newurl=$(this).data("href").substring(0,position);
+      doctor_id=$(this).data("href").substring($(this).data("href").indexOf('=')+1);
+      sessionStorage.setItem("doctor_id",doctor_id);
+      //alert(newurl);alert(doctor_id);
+        window.location = newurl;
+    });
+}
+/// display star rating
+
+function checkContainer () {
+    $('span.sstars').stars();  
+    $('*[data-href]').on('click', function() {
+      position=$(this).data("href").indexOf('?');
+      newurl=$(this).data("href").substring(0,position);
+      doctor_id=$(this).data("href").substring($(this).data("href").indexOf('=')+1);
+      sessionStorage.setItem("doctor_id",doctor_id);
+      //alert(newurl);alert(doctor_id);
+        window.location = newurl;
+
+    });
+ 
+}
+
+$.fn.stars = function() {
+    return $(this).each(function() {
+        // Get the value
+        var val = parseFloat($(this).html());
+        //alert(val);
+        // Make sure that the value is in 0 - 5 range, multiply to get width
+        var size = Math.max(0, (Math.min(5, val))) * 16;
+        // Create stars holder
+        var $span = $('<span />').width(size);
+        // Replace the numerical value with stars
+        $(this).html($span);
+    });
+}
+
+
+
+//find user location
+function geoFindMe() {
+
+  //const status = document.querySelector('#status');
+  //const mapLink = document.querySelector('#map-link');
+
+  //mapLink.href = '';
+  //mapLink.textContent = '';
+
+  function success(position) {
+    const latitude  = position.coords.latitude;
+    const longitude = position.coords.longitude;
+    origin1 = new google.maps.LatLng(latitude,longitude);
+    sessionStorage.setItem('latitude',latitude);
+    sessionStorage.setItem('longitude',longitude);
+  }
+
+  function error() {
+    //status.textContent = 'Unable to retrieve your location';
+  }
+
+  if(!navigator.geolocation) {
+    //status.textContent = 'Geolocation is not supported by your browser';
+  } else {
+    //status.textContent = 'Locating…';
+    navigator.geolocation.getCurrentPosition(success, error);
+  }
+
+}
+
+//map display
+
+function initMap() {
+     var center = {lat: window.docsearchdetails[0].latitude, lng: window.docsearchdetails[0].longitude};
+     //alert(center.lat);
+     var map = new google.maps.Map(document.getElementById('map'), {
+     zoom: 8,
+     center: center
+  });
+
+var infowindow =  new google.maps.InfoWindow({});
+
+  const markers = locations.map((location, i) => {
+    return new google.maps.Marker({
+      position: location,
+      title: docsearchdetails[i].docname
+      //,label:docsearchdetails[i].docname
+    });
+  });
+  // Add a marker clusterer to manage the markers.
+  new MarkerClusterer(map, markers, {
+    imagePath:
+      "https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m",
+  });
+for (count = 0; count < window.docsearchdetails.length; count++) {
+     alert(window.docsearchdetails.length);
+  google.maps.event.addListener(markers[count], 'click', (function (marker, count) {
+      return function () {
+        infowindow.setContent("<div><b>"+docsearchdetails[count].docname+"</b><br>"+docsearchdetails[count].address+"<br>"+docsearchdetails[count].city+"<br>"+docsearchdetails[count].docplace+"<br>"+docsearchdetails[count].zip+"<br><a href='#' onclick='calcRoute(37.7683909618184, -122.51089453697205,"+docsearchdetails[count].latitude+","+docsearchdetails[count].longitude+")'>Get Directions</a></div");
+        infowindow.open(map, marker);
+      }
+    })(markers[count], count));
+}
+
+}
+
+//clear form fields
+function clearSelection() {
+
+document.getElementById('docsearchresults').innerHTML="";
+["zipcode", "docname"].forEach(function(id) {
+        document.getElementById(id).value = "";
+      });
+document.getElementById('map').innerHTML="";
+document.getElementById('gender').selectedIndex=0;
+document.getElementById('speciality').selectedIndex=0;
+//sessionStorage.clear();
+ sessionStorage.removeItem('location');
+  sessionStorage.removeItem('doctor_id');
+}
+
+
+function changeLanguage(){
+  var data ={};
+  data.language=$('#language').val();
+    $.ajax({
+        type: 'POST',
+        data: JSON.stringify(data),
+        contentType: "application/json",
+        dataType:'xml',
+        url: '/languageFile',                  
+        success: function(response){
+        //document.getElementById("bestrateddoctor").innerHTML =$(response).find("bestrateddoctor")[0].childNodes[0].nodeValue;
+        document.getElementById("searchbtn").innerHTML =$(response).find("search")[0].childNodes[0].nodeValue;
+        
+    },
+        error: function(error) {
+            console.log(error);
+         }
+    });
+  
+
+}
+     </script>
+
+</body>
+</html>

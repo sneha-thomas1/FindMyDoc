@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+     <title>Health - Medical Website Template</title>
+<!--
+
+Template 2098 Health
+
+http://www.tooplate.com/view/2098-health
+
+-->
+     <link rel="shortcut icon" href="images/logo.ico">
+     <meta charset="UTF-8">
+     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+     <meta name="description" content="">
+     <meta name="keywords" content="">
+     <meta name="author" content="Tooplate">
+     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+     <link rel="stylesheet" href="css/bootstrap.min.css">
+     <link rel="stylesheet" href="css/font-awesome.min.css">
+     <link rel="stylesheet" href="css/animate.css">
+     <link rel="stylesheet" href="css/owl.carousel.css">
+     <link rel="stylesheet" href="css/owl.theme.default.min.css">
+
+     <!-- MAIN CSS -->
+     <link rel="stylesheet" href="css/tooplate-style.css">
+     <link rel="stylesheet" href="fonts/material-design-iconic-font/css/material-design-iconic-font.min.css">
+     <link rel="stylesheet" href="css/style_search.css">
+     <style>
+          .btn:hover {
+               background:#fff;
+          }
+     </style>
+</head>
+<body id="top" data-spy="scroll" data-target=".navbar-collapse" data-offset="50">
+
+     <!-- PRE LOADER -->
+     <section class="preloader">
+          <div class="spinner">
+
+               <span class="spinner-rotate"></span>
+               
+          </div>
+     </section>
+
+     <div id="header"></div>
+
+     <!-- HOME -->
+     <!-- ABOUT -->
+     <section id="about">
+          <div class="container">
+               <div class="row">
+
+                    <div class="col-md-6 col-sm-6">                       
+
+                         <div class="about-info">
+                              <h2 class="wow fadeInUp" data-wow-delay="0.6s">Welcome to <img src="images/logo.png" width="170" height="60" alt="Company logo"></h2>
+                              <div class="wow fadeInUp" data-wow-delay="0.8s">
+                                   <p>Let us help you find the best Doctor as per your needs.</p>
+                                   <p>FindMyDoc gives you the information and tools to analyze your symptoms and connect with the right Doctors.</p>
+                              </div>
+                         </div>
+
+                         
+                         <div class="inner" id="doc_search_box" border-style: solid;>
+                              <div class="container register-form">
+                                  <div class="form">
+
+                                      <div class="form-content">
+                                        <div class="row">
+                                             <div class="col-md-6">
+                                                  <h3>Quick Search</h3>
+                                             </div>
+                                           </div>
+                                          <div class="row">
+                                              <div class="col-md-3">
+                                                  <div class="form-group">
+                                                      <select name="speciality" id="speciality" class="form-control" placeholder="Speciality">
+                                                            </select>
+                                                  </div>
+                                                  <div class="form-group">
+                                                            <input type="text" class="form-control" placeholder="Doctor Name" name="docname" id="docname">
+                                                  </div>
+                                              </div>
+                                              <div class="col-md-3">
+                                                  <div class="form-group">
+                                                      <select name="gender" id="gender" class="form-control" placeholder="Gender">
+                                                                 <option value="All">Gender-All</option>
+                                                                 <option value="Male">Male</option>
+                                                                 <option value="Female">Female</option>
+                                                            </select>
+                                                  </div>
+                                                  <div class="form-group">
+                                                            <input type="text" class="form-control" placeholder="ZipCode" name="zipcode" id="zipcode">
+                                                  </div>
+                                              </div>
+                                          </div>
+                                        <div class="row">
+                                             <div class="col-md-6">
+                                                  <button id="searchbtn" type="button" class="btn-success" onclick="searchResults()">Search</button>
+                                             </div>
+                                           </div>
+                                      </div>
+                                  </div>
+                              </div>
+                         </div>
+                    </div>
+                    
+               </div>
+          </div>
+     </section>
+
+
+     <!-- TEAM -->
+     <section id="team" data-stellar-background-ratio="1">
+          <div class="container">
+               <div class="row">
+
+                    <div class="col-md-6 col-sm-6">
+                         <div class="about-info">
+                              <h2 class="wow fadeInUp" data-wow-delay="0.1s">Our Top-Rated Doctors</h2>
+                              <select name="bdspeciality" id="bdspecialities" class="form-control" placeholder="Speciality" onchange="bestDoctors()">
+                              </select><br>
+                         </div>
+                    </div>
+
+                    <div class="clearfix"></div>
+
+                    <div class="col-md-4 col-sm-6">
+                         <div class="team-thumb wow fadeInUp" data-wow-delay="0.2s">
+                              <img src="images/team-image1.jpg" class="img-responsive" alt="">
+
+                                   <div class="team-info">
+                                        <h3>Nate Baston</h3>
+                                        <p>General Principal</p>
+                                        <div class="team-contact-info">
+                                             <p><i class="fa fa-phone"></i> 010-020-0120</p>
+                                             <p><i class="fa fa-envelope-o"></i> <a href="#">general@company.com</a></p>
+                                        </div>
+                                        <ul class="social-icon">
+                                             <li><a href="#" class="fa fa-linkedin-square"></a></li>
+                                             <li><a href="#" class="fa fa-envelope-o"></a></li>
+                                        </ul>
+                                   </div>
+
+                         </div>
+                    </div>
+
+                    <div class="col-md-4 col-sm-6">
+                         <div class="team-thumb wow fadeInUp" data-wow-delay="0.4s">
+                              <img src="images/team-image2.jpg" class="img-responsive" alt="">
+
+                                   <div class="team-info">
+                                        <h3>Jason Stewart</h3>
+                                        <p>Pregnancy</p>
+                                        <div class="team-contact-info">
+                                             <p><i class="fa fa-phone"></i> 010-070-0170</p>
+                                             <p><i class="fa fa-envelope-o"></i> <a href="#">pregnancy@company.com</a></p>
+                                        </div>
+                                        <ul class="social-icon">
+                                             <li><a href="#" class="fa fa-facebook-square"></a></li>
+                                             <li><a href="#" class="fa fa-envelope-o"></a></li>
+                                             <li><a href="#" class="fa fa-flickr"></a></li>
+                                        </ul>
+                                   </div>
+
+                         </div>
+                    </div>
+
+                    <div class="col-md-4 col-sm-6">
+                         <div class="team-thumb wow fadeInUp" data-wow-delay="0.6s">
+                              <img src="images/team-image3.jpg" class="img-responsive" alt="">
+
+                                   <div class="team-info">
+                                        <h3>Miasha Nakahara</h3>
+                                        <p>Cardiology</p>
+                                        <div class="team-contact-info">
+                                             <p><i class="fa fa-phone"></i> 010-040-0140</p>
+                                             <p><i class="fa fa-envelope-o"></i> <a href="#">cardio@company.com</a></p>
+                                        </div>
+                                        <ul class="social-icon">
+                                             <li><a href="#" class="fa fa-twitter"></a></li>
+                                             <li><a href="#" class="fa fa-envelope-o"></a></li>
+                                        </ul>
+                                   </div>
+
+                         </div>
+                    </div>
+                    
+               </div>
+          </div>
+     </section>
+
+
+     <!-- NEWS -->
+     <section id="news" data-stellar-background-ratio="2.5">
+          <div class="container">
+               <div class="row">
+
+                    <div class="col-md-12 col-sm-12">
+                         <!-- SECTION TITLE -->
+                         <div class="section-title wow fadeInUp" data-wow-delay="0.1s">
+                              <h2>Latest News</h2>
+                         </div>
+                    </div>
+
+                    <div class="col-md-4 col-sm-6">
+                         <!-- NEWS THUMB -->
+                         <div class="news-thumb wow fadeInUp" data-wow-delay="0.4s">
+                              <a href="https://www.cdc.gov/coronavirus/2019-ncov/vaccines/your-vaccination.html">
+                                   <img src="images/covidvaccine.png" class="img-responsive" alt="">
+                              </a>
+                              <div class="news-info">
+                                   <span>April 19, 2021</span>
+                                   <h3><a href="https://www.cdc.gov/coronavirus/2019-ncov/vaccines/your-vaccination.html">Get Vaccinated!</a></h3>
+                                   <p>COVID-19 vaccines are safe and effective. Everyone 16 years of age and older is now eligible to get a COVID-19 vaccination. Learn about the different vaccines available.</p>
+                                   <div class="author">
+                                        <img src="images/cdc.jpg" class="img-responsive" alt="">
+                                        <div class="author-info">
+                                             <p>CDC</p>
+                                        </div>
+                                   </div>
+                              </div>
+                         </div>
+                    </div>
+
+                    <div class="col-md-4 col-sm-6">
+                         <!-- NEWS THUMB -->
+                         <div class="news-thumb wow fadeInUp" data-wow-delay="0.6s">
+                              <a href="https://covid19.sccgov.org/dashboards">
+                                   <img src="images/coviddashboard.jpg" class="img-responsive" alt="">
+                              </a>
+                              <div class="news-info">
+                                   <span>May 10, 2021</span>
+                                   <h3><a href="https://covid19.sccgov.org/dashboards">Covid-19 Dashboard</a></h3>
+                                   <p>Provides information on characteristics of COVID-19 cases and deaths, including: age, source of transmission, and underlying conditions for deaths.</p>
+                                   <div class="author">
+                                        <img src="images/santaclara.png" class="img-responsive" alt="">
+                                        <div class="author-info">
+                                             <p>Santa Clara County Public Health</p>
+                                        </div>
+                                   </div>
+                              </div>
+                         </div>
+                    </div>
+
+                    <div class="col-md-4 col-sm-6">
+                         <!-- NEWS THUMB -->
+                         <div class="news-thumb wow fadeInUp" data-wow-delay="0.8s">
+                              <a href="https://medcitynews.com/2021/05/mayo-clinic-finds-algorithm-helped-clinicians-detect-heart-disease-as-part-of-broader-ai-diagnostics-push/">
+                                   <img src="images/heartnews.jpg" class="img-responsive" alt="">
+                              </a>
+                              <div class="news-info">
+                                   <span>May 09, 2021</span>
+                                   <h3><a href="https://medcitynews.com/2021/05/mayo-clinic-finds-algorithm-helped-clinicians-detect-heart-disease-as-part-of-broader-ai-diagnostics-push/">Algorithm to detect heart diseases</a></h3>
+                                   <p>Mayo Clinic shared results of a study showing that an AI tool developed by the system could be used to improve diagnosis of low ejection fraction, a type of heart disease.</p>
+                                   <div class="author">
+                                        <img src="images/mayoclinic.jpg" class="img-responsive" alt="">
+                                        <div class="author-info">
+                                             <h5>Mayo Clinic</h5>
+                                        </div>
+                                   </div>
+                              </div>
+                         </div>
+                    </div>
+
+               </div>
+          </div>
+     </section>
+
+
+     <!-- MAKE AN APPOINTMENT -->
+     <section id="appointment" data-stellar-background-ratio="3">
+          <div class="container">
+               <div class="row">
+
+                    <div class="col-md-6 col-sm-6">
+                         <img src="images/appointment-image.jpg" class="img-responsive" alt="">
+                    </div>
+
+                    <div class="col-md-6 col-sm-6">
+                         <!-- CONTACT FORM HERE -->
+                         <form id="appointment-form" role="form" method="post" action="#">
+
+                              <!-- SECTION TITLE -->
+                              <div class="section-title wow fadeInUp" data-wow-delay="0.4s">
+                                   <h2>Make an appointment</h2>
+                              </div>
+
+                              <div class="wow fadeInUp" data-wow-delay="0.8s">
+                                   <div class="col-md-6 col-sm-6">
+                                        <label for="name">Name</label>
+                                        <input type="text" class="form-control" id="name" name="name" placeholder="Full Name">
+                                   </div>
+
+                                   <div class="col-md-6 col-sm-6">
+                                        <label for="email">Email</label>
+                                        <input type="email" class="form-control" id="email" name="email" placeholder="Your Email">
+                                   </div>
+
+                                   <div class="col-md-6 col-sm-6">
+                                        <label for="date">Select Date</label>
+                                        <input type="date" name="date" value="" class="form-control">
+                                   </div>
+
+                                   <div class="col-md-6 col-sm-6">
+                                        <label for="select">Select Department</label>
+                                        <select class="form-control">
+                                             <option>General Health</option>
+                                             <option>Cardiology</option>
+                                             <option>Dental</option>
+                                             <option>Medical Research</option>
+                                        </select>
+                                   </div>
+
+                                   <div class="col-md-12 col-sm-12">
+                                        <label for="telephone">Phone Number</label>
+                                        <input type="tel" class="form-control" id="phone" name="phone" placeholder="Phone">
+                                        <label for="Message">Additional Message</label>
+                                        <textarea class="form-control" rows="5" id="message" name="message" placeholder="Message"></textarea>
+                                        <button type="submit" class="form-control" id="cf-submit" name="submit">Submit</button>
+                                   </div>
+                              </div>
+                        </form>
+                    </div>
+
+               </div>
+          </div>
+     </section>
+
+
+     <!-- GOOGLE MAP -->
+     <section id="google-map">
+     <!-- How to change your own map point
+            1. Go to Google Maps
+            2. Click on your location point
+            3. Click "Share" and choose "Embed map" tab
+            4. Copy only URL and paste it within the src="" field below
+	-->
+          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3647.3030413476204!2d100.5641230193719!3d13.757206847615207!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xf51ce6427b7918fc!2sG+Tower!5e0!3m2!1sen!2sth!4v1510722015945" width="100%" height="350" frameborder="0" style="border:0" allowfullscreen></iframe>
+     </section>           
+
+
+     <!-- FOOTER -->
+     <div id="footer"></div>
+
+     <!-- SCRIPTS -->
+     <script src="js/jquery.js"></script>
+     <script src="js/bootstrap.min.js"></script>
+     <script src="js/jquery.sticky.js"></script>
+     <script src="js/jquery.stellar.min.js"></script>
+     <script src="js/wow.min.js"></script>
+     <script src="js/smoothscroll.js"></script>
+     <script src="js/owl.carousel.min.js"></script>
+     <script src="js/custom.js"></script>
+
+
+     <!--   Core JS Files   -->
+     <script src="js/jquery-2.2.4.min.js" type="text/javascript"></script>
+     <script src="js/bootstrap.min.js" type="text/javascript"></script>
+     <script src="js/jquery.bootstrap.wizard.js" type="text/javascript"></script>
+
+     <!--  Plugin for the Wizard -->
+     <script src="js/gsdk-bootstrap-wizard.js"></script>
+
+     <!--  More information about jquery.validate here: http://jqueryvalidation.org/  -->
+     <script src="js/jquery.validate.min.js"></script>
+
+     
+     <script>
+          $(document).ready(function(){
+            //$("#doc_search_box").load("doctor_search_box.html"); 
+            $("#header").load("header.html"); 
+            $("#footer").load("footer.html"); 
+            doctorSpeciality();
+            changeLanguage();
+          })
+
+          function doctorSpeciality(){
+               $.ajax({
+                    type: 'GET',
+                    url: '/doctorspeciality',                  
+                    success: function(response){
+                    if(response.length > 0){
+                         var allstr='';
+                         var str='';
+                         allstr+='<option value="All" selected>Speciality-All</option>';
+                         for(let index = 0; index < response.length; index++) {
+                              str+='<option value="'+response[index].speciality+'">'+response[index].speciality+'</option>';} 
+                         $("#bdspecialities").empty();
+                         $("#bdspecialities").append(str);
+                         allstr+=str;
+                         console.log(allstr);
+                         $("#speciality").empty();
+                         $("#speciality").append(allstr);
+                         bestDoctors();
+
+                         }
+                    },
+                    error: function(error) {
+                         console.log(error);
+                   }
+              });
+          }
+
+          function bestDoctors(){
+  var data ={};
+  data.speciality=$('#bdspecialities').val();
+    $.ajax({
+        type: 'POST',
+        data: JSON.stringify(data),
+        contentType: "application/json",
+        dataType:'json',
+        url: '/bestDoctors',                  
+        success: function(response){
+        //alert("bd response");
+          var str='';
+          //$("#bestdoctortable").empty();
+          responselength=Object.keys(response).length;
+       if(responselength > 0){
+          //alert(responselength);
+        //alert("bd response length");
+          for(let index = 0; index < responselength; index++) {
+            //alert("best doctors");
+            str+='<tr  style="border:ridge;" data-href="doctor1.html?id='+response[index].doctor_id;
+            str+='"><td>';
+              if(!response[index].doctor_photo){
+                str+='<img style="padding-top: 2px;" src="images/default.jpg" type="image/jpg" width= "100" height="90">';
+                }
+                else{
+                  console.log('Base64 String - ', response[index].doctor_photo);
+                  //data:image/png;base64,
+                  str+='<img style="padding-top: 2px;" src="data:image/png;base64,"'+response[index].doctor_photo+'" type="image/png" width= "100" height="90">';
+                  }
+            str+='</td><td><div class="docname"><b>'+response[index].docname+'</b></div><div class="docplace"><span id="placename">'+response[index].placename+'</span></div><div class="bdocrating" id="bdocrating"><span class="rating" style="display:inline-block">'+response[index].rating+'&nbsp&nbsp</span><span class="stars" style="display: inline-block">'+response[index].rating+'</span><span class="reviewcount" style="display: inline-block;">&nbsp('+response[index].reviewcount+')</span></div></td></tr>';
+}  
+
+
+//$("#bestdoctortable").append(str);
+//checkbdContainer();
+
+}
+    },
+        error: function(error) {
+            console.log(error);
+         }
+    });
+  
+}
+
+function checkbdContainer(){
+
+    $('span.stars').stars();
+    $('*[data-href]').on('click', function() {
+        position=$(this).data("href").indexOf('?');
+      newurl=$(this).data("href").substring(0,position);
+      doctor_id=$(this).data("href").substring($(this).data("href").indexOf('=')+1);
+      sessionStorage.setItem("doctor_id",doctor_id);
+      //alert(newurl);alert(doctor_id);
+        window.location = newurl;
+    });
+}
+
+$.fn.stars = function() {
+    return $(this).each(function() {
+        // Get the value
+        var val = parseFloat($(this).html());
+        //alert(val);
+        // Make sure that the value is in 0 - 5 range, multiply to get width
+        var size = Math.max(0, (Math.min(5, val))) * 16;
+        // Create stars holder
+        var $span = $('<span />').width(size);
+        // Replace the numerical value with stars
+        $(this).html($span);
+    });
+}
+
+
+          function searchResults(){
+              console.log("inside search results function in index");
+              var dataVal = {};
+              dataVal.docnameVal=$('#docname').val();
+              dataVal.specialityVal =$('#speciality').val();
+              dataVal.zipcodeVal=$('#zipcode').val();
+              dataVal.genderVal=$('#gender').val();
+              window.location = 'static/search_doctors.html?docnameval='+dataVal.docnameVal+
+              '&specialityval='+dataVal.specialityVal+
+              '&zipcodeval='+dataVal.zipcodeVal+
+              '&genderVal='+dataVal.genderVal;     
+          }
+
+          function changeLanguage(){
+            var data ={};
+            data.language=$('#language').val();
+              $.ajax({
+                  type: 'POST',
+                  data: JSON.stringify(data),
+                  contentType: "application/json",
+                  dataType:'xml',
+                  url: '/languageFile',                  
+                  success: function(response){
+                  //document.getElementById("bestrateddoctor").innerHTML =$(response).find("bestrateddoctor")[0].childNodes[0].nodeValue;
+                  document.getElementById("searchbtn").innerHTML =$(response).find("search")[0].childNodes[0].nodeValue;
+                  
+              },
+                  error: function(error) {
+                      console.log(error);
+                   }
+              });
+          }
+
+     </script>
+
+</body>
+</html>

@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+     <title>Health - Medical Website Template</title>
+<!--
+
+Template 2098 Health
+
+http://www.tooplate.com/view/2098-health
+
+-->
+     <meta charset="UTF-8">
+     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+     <meta name="description" content="">
+     <meta name="keywords" content="">
+     <meta name="author" content="Tooplate">
+     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <link rel="shortcut icon" href="images/logo.ico">
+     <link rel="stylesheet" href="css/bootstrap.min.css">
+     <link rel="stylesheet" href="css/font-awesome.min.css">
+     <link rel="stylesheet" href="css/animate.css">
+     <link rel="stylesheet" href="css/owl.carousel.css">
+     <link rel="stylesheet" href="css/owl.theme.default.min.css">
+
+     <!-- MAIN CSS -->
+     <link rel="stylesheet" href="css/tooplate-style.css">
+     <link rel="stylesheet" href="fonts/material-design-iconic-font/css/material-design-iconic-font.min.css">
+     <link rel="stylesheet" href="css/style_search.css">
+
+
+  <!--     Fonts and icons     -->
+    <link href="http://netdna.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.css" rel="stylesheet">
+
+  <!-- CSS Files -->
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="assets/css/gsdk-bootstrap-wizard.css" rel="stylesheet" />
+  <style>
+    #age {
+    width: 60px;
+    padding-left: 0px; } 
+  }
+
+     #sc_tab {
+      background-color: #F5F5F5;
+    }
+
+  </style>>
+</head>
+<body id="top" data-spy="scroll" data-target=".navbar-collapse" data-offset="50">
+
+     <!-- PRE LOADER -->
+     <section class="preloader">
+          <div class="spinner">
+
+               <span class="spinner-rotate"></span>
+               
+          </div>
+     </section>
+
+     <div id="header"></div>
+
+     <!-- HOME -->
+     <!-- ABOUT -->
+     <section id="sc_tab">
+          <div class="container">
+               <div class="row">
+                    <div class="col-md-12 col-sm-12">                       
+
+            <!--      Wizard container        -->
+            <div class="wizard-container">
+                <div class="card wizard-card" data-color="green" id="wizard">
+                    <form action="" method="" id="sc_wizard_form">
+                <!--        You can switch ' data-color="azzure" '  with one of the next bright colors: "blue", "green", "orange", "red"          -->
+                      <div class="wizard-header">
+                          <h3>SYMPTOMS CHECKER <br>
+                             <small>Identify possible conditions and treatment related to your symptoms.</small>
+                          </h3>
+                      </div>
+                      <div class="wizard-navigation">
+                        <ul>
+                            <li><a href="#details" data-toggle="tab">Details</a></li>
+                            <li><a href="#symptoms_tab" data-toggle="tab">Symptoms</a></li>
+                            <li><a href="#diagnoses_tab" data-toggle="tab">Diagnoses</a></li>
+                        </ul>
+                      </div>
+                      <div class="tab-content">
+                          <div class="tab-pane" id="details">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                  <h4 class="info-text"> Let's start with the basic details</h4>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-2 col-sm-offset-4">
+                                    <h4>AGE</h4>
+                                    <input name="age" id="age" type="number" min=1 max=125 class="form-control">
+                                </div>
+                                  <div class="col-sm-2">
+                                      <h4>GENDER</h4>
+                                      <select class="form-control" id="gender">
+                                          <option disabled="" selected="">- Select gender -</option>
+                                          <option>Male</option>
+                                          <option>Female</option>
+                                      </select>
+                                  </div>
+                            </div>
+                          </div>
+                          <div class="tab-pane" id="symptoms_tab">
+                              <h4 class="info-text">What are your symptoms? </h4>
+                              <div class="row">
+                                <div class="col-sm-5">
+                                  <input class="form-control" list="symptomsList" style = "width: 100%" name="symptom" id="symptom" onchange="onChangeSymptoms()">
+                                  <datalist id="symptomsList">
+                                  </datalist>
+                                  <br>
+                                  <div id="symptomValue"></div>
+                                </div>
+                                <div class="col-sm-1">
+                                    <button class="btn btn-success" style = "width:100%" onclick="return addSymptoms()">>></button>
+                                </div>
+                                <div class="col-sm-6">
+                                  <div id="symptoms_added"></div>
+                                </div>
+                              </div>
+                          </div>
+                          <div class="tab-pane" id="diagnoses_tab">
+                              <div class="row">
+                                  <h4 class="info-text"> Possible diagnoses </h4>
+                                  <div class="col-sm-10 col-sm-offset-1">
+                                       <div class="form-group">
+                                          <div id="diagnoses"></div>
+                                        </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="wizard-footer">
+                            <div class="pull-right">
+                                  <input type='button' class='btn btn-next btn-fill btn-info btn-wd btn-sm' name='next' value='Next' onclick="return analyze()"/>
+                                  <input type='button' class='btn btn-finish btn-fill btn-info btn-wd btn-sm' name='finish' value='Finish'/>
+                              </div>
+                              <div class="pull-left">
+                                  <input type='button' class='btn btn-previous btn-fill btn-default btn-wd btn-sm' name='previous' value='Previous' />
+                              </div>
+                              <div class="clearfix"></div>
+                      </div>
+                    </form>
+                </div>
+            </div> <!-- wizard container -->
+                    </div>
+                    
+               </div>
+          </div>
+     </section>
+
+     <!-- FOOTER -->
+     <div id="footer"></div>
+
+
+     <!-- SCRIPTS -->
+     <script src="js/jquery.js"></script>
+     <script src="js/bootstrap.min.js"></script>
+     <script src="js/jquery.sticky.js"></script>
+     <script src="js/jquery.stellar.min.js"></script>
+     <script src="js/wow.min.js"></script>
+     <script src="js/smoothscroll.js"></script>
+     <script src="js/owl.carousel.min.js"></script>
+     <script src="js/custom.js"></script>
+
+
+     <!--  Plugin for the Wizard -->
+     <script src="js/gsdk-bootstrap-wizard.js"></script>
+  <script src="assets/js/jquery.bootstrap.wizard.js" type="text/javascript"></script>
+
+  <!--  Plugin for the Wizard -->
+  <script src="assets/js/gsdk-bootstrap-wizard.js"></script>
+
+  <!--  More information about jquery.validate here: http://jqueryvalidation.org/  -->
+  <script src="assets/js/jquery.validate.min.js"></script>
+
+
+     <!--  More information about jquery.validate here: http://jqueryvalidation.org/  -->
+     <script src="js/jquery.validate.min.js"></script>
+     <script>
+    var symptomsList;
+    var featureSent = 0;
+    var action = 0;
+    var patient_symptoms={};
+    $( document ).ready(function() {
+      $("#header").load("header.html"); 
+      $("#footer").load("footer.html");
+      action = 0;
+      $.ajax({
+            type: 'GET',
+            url: '/symptoms_output',                  
+            success: function(response){
+           if(response.length > 0){
+              symptomsList = response;
+              var str = "";
+              for(let index = 0; index < response.length; index++) {
+                str+='<option value="'+response[index].text+'" idx="'+index+'"></option>';
+              }
+              $("#symptomsList").empty();
+              $("#symptomsList").append(str);
+           }
+          },
+            error: function(error) {
+                console.log(error);
+             }
+        });
+    });
+
+    function onChangeSymptoms() {
+      var selsymptom=document.getElementById('symptom').value;
+      if(!selsymptom)
+        return;
+      var index = symptomsList.findIndex(obj => obj.text==selsymptom);
+      if(["integer","double"].includes(symptomsList[index].type)){
+         var strInput = '<input class="form-control" type="number" id="symptomChoice" name="symptomChoice" min="'+symptomsList[index].min+'" max="'+symptomsList[index].max+'" value="'+symptomsList[index].default+'">';
+      }
+      else if(symptomsList[index].type=="categorical"){
+         var choices=symptomsList[index].choices;
+         //alert(choices.length);
+         var strInput='<select name="symptomChoice" id="symptomChoice" class="form-control">';
+         for (i=0;i<choices.length;i++){
+          strInput+='<option value="'+choices[i].value+'">'+choices[i].text+'</option>';
+          }
+          strInput+='</select>';
+      }
+      $("#symptomValue").empty();
+      $("#symptomValue").append(strInput);
+    }
+
+    function addSymptoms() {
+      patient_symptoms={};
+      if(action == 0)
+      {        
+        patient_symptoms['Age'] = parseInt(document.getElementById('age').value);
+        patient_symptoms['Gender'] = document.getElementById('gender').value == "Male"? 1:2;
+        action = 1;
+      }
+      document.getElementById('symptomsList').value = "";
+      var selsymptom=document.getElementById('symptom').value;
+      if(!selsymptom)
+      {
+        alert("Please select a symptom to add");
+        return false;
+      }
+      var index = symptomsList.findIndex(obj => obj.text==selsymptom);
+      var symptom_short = symptomsList[index].name;
+      var selsymptomvalue=document.getElementById('symptomChoice').value;
+      if(!selsymptomvalue) return false;
+      patient_symptoms[symptom_short]=selsymptomvalue;
+      
+      console.log(Object.keys(patient_symptoms).length);
+      for (var key in patient_symptoms) {
+        console.log(key+":"+patient_symptoms[key]);
+      }
+
+      sendFeature();
+      $("#symptomValue").empty();
+      $("#symptoms_added").append(featureSent+". "+selsymptom+" <b>"+selsymptomvalue + "</b><br>");
+      return false;
+    }
+
+    function sendFeature() {
+     //var patient_symptoms={};
+     console.log("wrapping up..")
+      console.log(JSON.stringify(patient_symptoms));
+      $.ajax({
+          type: 'POST',
+          url: '/update_symptoms',
+          data: JSON.stringify(patient_symptoms),
+          contentType: "application/json",
+          dataType:'json',
+          success: function(response){
+         if(response.length > 0){
+         }
+        },
+          error: function(error) {
+              console.log(error);
+           }
+      });
+      featureSent++;
+    }
+
+    function analyze() {
+      if(action != 1)
+        return false;
+      $.ajax({
+          type: 'GET',
+          url: '/analyze_symptoms',
+          contentType: "application/json",
+          dataType:'json',
+          success: function(response){
+         if(response.length > 0){
+            console.log("sucess.");
+            var diag = "";
+            var idx=1;
+            for (var key in response) {
+              //var lblDiseases = '<label>'+key+'</label><br>'
+              var disease = Object.keys(response[key])[0];
+              var percentage = response[key][disease]*100
+              console.log("Key: "+disease+" Value: "+percentage);
+              diag = diag+idx+". "+disease+": "+(Math.round(percentage * 100) / 100)+"<br>";
+              idx++;
+              //console.log(response[key])[0][Object.keys(response[key])[0]]);
+            }   
+            $("#diagnoses").empty();
+            $("#diagnoses").append(diag);
+         }
+        },
+          error: function(error) {
+              console.log(error);
+           }
+      });
+      return false;
+    }
+
+     </script>
+</body>
+</html>

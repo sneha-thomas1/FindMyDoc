@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+
+<h1>Symptoms checker</h1>
+<script>
+var symptomsList;
+var patient_symptoms={};
+$( document ).ready(function() {
+  $.ajax({
+        type: 'GET',
+        url: '/symptoms_output',                  
+        success: function(response){
+       if(response.length > 0){
+          symptomsList = response;
+          var str = "";
+          for(let index = 0; index < response.length; index++) {
+            str+='<option value="'+response[index].text+'" idx="'+index+'"></option>';
+          }
+          $("#symptomsList").empty();
+          $("#symptomsList").append(str);
+			 }
+			},
+        error: function(error) {
+            console.log(error);
+         }
+    });
+});
+
+function onChangeSymptoms() {
+  var selsymptom=document.getElementById('symptom').value;
+  if(!selsymptom)
+    return;
+  var index = symptomsList.findIndex(obj => obj.text==selsymptom);
+  if(["integer","double"].includes(symptomsList[index].type)){
+     var strInput = '<input type="number" id="symptomChoice" name="symptomChoice" min="'+symptomsList[index].min+'" max="'+symptomsList[index].max+'" value="'+symptomsList[index].default+'">';
+  }
+  else if(symptomsList[index].type=="categorical"){
+     var choices=symptomsList[index].choices;
+     //alert(choices.length);
+     var strInput='<select name="symptomChoice" id="symptomChoice">';
+     for (i=0;i<choices.length;i++){
+      strInput+='<option value="'+choices[i].value+'">'+choices[i].text+'</option>';
+      }
+      strInput+='</select>';
+  }
+  $("#symptomValue").empty();
+  $("#symptomValue").append(strInput);
+}
+
+function addSymptoms() {
+
+  var selsymptom=document.getElementById('symptom').value;
+  if(!selsymptom)
+  {
+    alert("Please select a symptom to add");
+  }
+  var index = symptomsList.findIndex(obj => obj.text==selsymptom);
+  var symptom_short = symptomsList[index].name;
+  var selsymptomvalue=document.getElementById('symptomChoice').value;
+  patient_symptoms[symptom_short]=selsymptomvalue;
+}
+
+
+function wrapUp() {
+ //var patient_symptoms={};
+  patient_symptoms['Age'] = 33;
+  patient_symptoms['Gender'] = 2;
+  console.log(JSON.stringify(patient_symptoms));
+  $.ajax({
+      type: 'POST',
+      url: '/update_symptoms',
+      data: JSON.stringify(patient_symptoms),
+      contentType: "application/json",
+      dataType:'json',
+      success: function(response){
+     if(response.length > 0){
+     }
+    },
+      error: function(error) {
+          console.log(error);
+       }
+  });
+}
+
+function analyze() {
+  $.ajax({
+      type: 'GET',
+      url: '/analyze_symptoms',
+      contentType: "application/json",
+      dataType:'json',
+      success: function(response){
+     if(response.length > 0){
+        console.log("sucess.");
+        for (var key in response) {
+          //var lblDiseases = '<label>'+key+'</label><br>'
+          console.log(response[key]);
+        }   
+        $("#prob_diseases").empty();
+        //$("#prob_diseases").append(lblDiseases);
+     }
+    },
+      error: function(error) {
+          console.log(error);
+       }
+  });
+}
+
+</script>
+<div>
+  <label for="age">Age</label>
+  <input type="number" id="age" name="age" min="1" max="125">
+  
+  <p>Please select your gender:</p>
+  <input type="radio" id="male" name="gender" value="male">
+  <label for="male">Male</label><br>
+  <input type="radio" id="female" name="gender" value="female">
+  <label for="female">Female</label><br>
+  <input type="radio" id="other" name="gender" value="other">
+  <label for="other">Other</label>
+  
+  <br>
+  <label for="symptoms">Select symptoms:</label>
+  <input list="symptomsList" name="symptom" id="symptom" onchange="onChangeSymptoms()">
+  <datalist id="symptomsList">
+  </datalist>
+
+  
+
+  <br>
+  <div id="symptomValue">
+
+  </div>
+  <br>
+  <input type="button" value="Add Symptom" onclick="addSymptoms()">
+  <br><br>
+  <input type="button" value="Wrap up" onclick="wrapUp()">
+  <br><br>
+  <input type="button" value="Analyze" onclick="analyze()">
+  
+  <br><br>
+    <h4>Probable diseases</h4>
+    <br>
+  <div id="prob_diseases">
+  </div>
+
+</div>
+
+</body>
+</html>

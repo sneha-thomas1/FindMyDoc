@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>FindMyDoctor</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+
+
+
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCdcra4ZrZCoaVmhQmQSIFQ790RPG4cyTA"></script>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+  <script src="https://unpkg.com/@google/markerclustererplus@4.0.1/dist/markerclustererplus.min.js"></script>
+
+
+<!--Wizard start -->
+<link rel="apple-touch-icon" sizes="76x76" href="assets/img/apple-icon.png" />
+  <link rel="icon" type="image/png" href="assets/img/favicon.png" />
+
+  <!--     Fonts and icons     -->
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" />
+
+  <!-- CSS Files -->
+  <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="assets/css/material-bootstrap-wizard.css" rel="stylesheet" />
+ 
+
+ <!--   Core JS Files   -->
+  <script src="assets/js/jquery-2.2.4.min.js" type="text/javascript"></script>
+  <script src="assets/js/bootstrap.min.js" type="text/javascript"></script>
+  <script src="assets/js/jquery.bootstrap.js" type="text/javascript"></script>
+
+  <!--  Plugin for the Wizard -->
+  <script src="assets/js/material-bootstrap-wizard.js"></script>
+
+  <!--  More information about jquery.validate here: http://jqueryvalidation.org/  -->
+  <script src="assets/js/jquery.validate.min.js"></script>
+
+  <!-- wizard end-->
+<style>
+/* footer icons*/
+/* Style all font awesome icons */
+.fa {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  font-size: 25px;
+  width: 45px;height:45px;
+  text-align: center;
+  text-decoration: none;
+}
+
+.fa:hover {
+    opacity: 0.7;
+}
+
+.fa-facebook {
+  background: #3B5998;
+  color: white;
+}
+
+.fa-twitter {
+  background: #55ACEE;
+  color: white;
+}
+
+.fa-instagram {
+  background: #125688;
+  color: white;
+}
+  body, html {
+  height: 100%;
+  margin: 0;
+  font-family: Arial;
+}
+.containerf {
+  display: flex;
+}
+.containerf > div {
+  flex: 1; /*grow*/
+}
+  footer {
+  background-color: #4b9ff2;
+  
+  padding: 2px;
+  text-align: left;
+  font-size: 15px;
+  width:100%;
+
+  min-height: 150px;
+  display:inline-block
+}
+.searchbtn{
+  width:150px;
+  height:35px;
+  color: white;
+  background-color: #4b9ff2;
+  border:none;
+}
+tr.spaceUnder>td {
+  padding-bottom: 4em;
+}
+
+.blank_row
+{
+    height: 10px;
+    background-color: #FFFFFF;
+}
+table {
+  border:none;
+}
+
+section.left {width: 75%;float: left;padding-top: 150px;padding-right: 0px;}
+section.right {width: 25%;float: right;padding-left: 2px;}
+body {font-family: Arial;}
+
+/* Style the tab */
+.tab {
+  overflow: hidden;
+  border: 2px solid #ccc;
+  background-color: #4b9ff2;
+}
+
+/* Style the buttons inside the tab */
+.tablinks {
+  background-color: inherit;
+  float: center;
+  outline: none;
+  cursor: pointer;
+  padding: 3px 5px ;
+  transition: 0.3s;
+  font-size: 17px;
+  color:white;
+  border:none;
+}
+
+/* Style the labels inside the tab */
+.tab label {
+  background-color: inherit;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  transition: 0.3s;
+  font-size: 17px;
+  color:white;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+  background-color: #2C5DC6;
+}
+#Home {background-color: white;}
+#HealthNews {background-color: white;}
+/* Create an active/current tablink class 
+.tab button.active {
+  background-color: #6D9AFC;
+}*/
+* {box-sizing: border-box}
+/* Style the tab content */
+.tabcontent {
+  display: inline-block;
+  padding: 0px 0px;
+  /*border: 1px solid #ccc;*/
+
+} 
+.bestdoc{
+  background-color: white;
+}  
+a{
+
+  cursor: pointer;
+}
+span.stars, span.stars span {
+    display: block;
+    background: url(static/images/stars.png) 0 -16px repeat-x;
+    width: 80px;
+    height: 16px;
+}
+span.stars span {
+    background-position: 0 0;
+}
+
+span.sstars, span.sstars span {
+    display: block;
+    background: url(static/images/stars.png) 0 -16px repeat-x;
+    width: 80px;
+    height: 16px;
+}
+
+span.sstars span {
+    background-position: 0 0;
+}
+
+/*map display*/
+/* Set the size of the div element that contains the map */
+      #map {
+        height: 500px;
+      }
+  [data-href] {
+    cursor: pointer;
+}
+
+</style>
+<body>
+<script>
+
+ $(document).ready(function(){
+  //sessionStorage.clear();
+  document.getElementById("defaultOpen").click();
+  sessionStorage.removeItem('location');
+  sessionStorage.removeItem('doctor_id');
+  doctorSpeciality();
+  geoFindMe();
+  var latitude=sessionStorage.getItem('latitude');
+  var longitude=sessionStorage.getItem('longitude');
+  origin1=new google.maps.LatLng(latitude,longitude);
+})
+
+function doctorSpeciality(){
+  $.ajax({
+        type: 'GET',
+        url: '/doctorspeciality',                  
+        success: function(response){
+       if(response.length > 0){
+        var allstr='';
+        var str='';
+        allstr+='<option value="All" selected>Speciality-All</option>';
+        for(let index = 0; index < response.length; index++) {
+            str+='<option value="'+response[index].speciality+'">'+response[index].speciality+'</option>';} 
+$("#bdspeciality").empty();
+$("#bdspeciality").append(str);
+bestDoctors(); 
+allstr+=str;
+$("#speciality").empty();
+$("#speciality").append(allstr);
+
+}
+},
+        error: function(error) {
+            console.log(error);
+         }
+    });
+}
+
+function calcRoute(lat1, lon1, lat2, lon2) {
+    var directionsService = new google.maps.DirectionsService();
+  //var start = "chicago, il";
+  //var end = "joplin, mo";
+  var start = new google.maps.LatLng(lat1, lon1);
+  var end = new google.maps.LatLng(lat2, lon2);
+  var request = {
+    origin: start,
+    destination: end,
+    travelMode: 'DRIVING'
+  };
+  var directionsService = new google.maps.DirectionsService();
+  var directionsRenderer = new google.maps.DirectionsRenderer();
+  var chicago = new google.maps.LatLng(41.850033, -87.6500523);
+  var mapOptions = {
+    zoom:7,
+    center: chicago
+  }
+  var map = new google.maps.Map(document.getElementById('map'), mapOptions);
+  directionsRenderer.setMap(map);
+  directionsService.route(request, function(result, status) {
+    if (status == 'OK') {
+      directionsRenderer.setDirections(result);
+    }
+  });
+}
+
+function openPage(pageName,elmnt) {
+  var i, tabcontent, tablinks;
+  tabcontent = document.getElementsByClassName("tabcontent");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+  tablinks = document.getElementsByClassName("tablinks");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" active", "");
+  }
+  document.getElementById(pageName).style.display = "block";
+  elmnt.currentTarget.className += " active";
+  
+}
+
+
+
+var pageNum=1;
+function searchResults(){
+  document.getElementById('docsearchresults').innerHTML='';
+  var data ={};
+    console.log("inside function");
+    data.docname=$('#docname').val();
+    data.speciality=$('#speciality').val();
+    data.zipcode=$('#zipcode').val();
+    data.gender=$('#gender').val();
+    $.ajax({
+        type: 'POST',
+        data: JSON.stringify(data),
+        contentType: "application/json",
+        dataType:'json',
+        url: '/getdoctordetails?'+ $.param({ page: pageNum }),    
+        success: function(response){
+          console.log(response);
+          responselength=Object.keys(response).length;
+          locations = [];
+       if(responselength > 1){
+         //alert(response["pagination"].totalrows);
+        window.docsearchdetails=response;
+
+        for(let count = 0; count < (responselength-1); count++) {
+        loc = {lat: response[count].latitude, lng: response[count].longitude};
+              locations.push(loc);
+          }
+        var distanceArray;
+        sessionStorage.setItem('location',locations);
+        const service = new google.maps.DistanceMatrixService();
+        service.getDistanceMatrix(
+          {
+            origins: [origin1],
+            destinations: locations,
+            travelMode: google.maps.TravelMode.DRIVING,
+            unitSystem: google.maps.UnitSystem.METRIC,
+            avoidHighways: false,
+            avoidTolls: false,
+          },
+
+          (distResp, distStatus) => {
+            if (distStatus !== "OK") {
+              alert("Error was: " + distStatus);
+            } else {
+                distanceArray=distResp.rows[0].elements;
+                var str='';
+                str+='<label style="font-size: 25px;">Search results</label>&nbsp&nbsp&nbsp<a href="javascript:initMap()">Show in Map</a>&nbsp&nbsp&nbsp<a id="clearsearch" style="border-left:solid;padding-left: 5px;" href="javascript:clearSelection();">Clear Search</a><div class="docdetails"><table id="doctorlist" style="width: 50%;"><tbody><tr><td align="left">';
+                if(pageNum!=1){
+                str+='<a href="javascript:prevPage();">Prev</a>&nbsp&nbsp';};
+                if (response["pagination"].next != null){
+                str+='<a href="javascript:nextPage();">Next</a>';}
+                str+='</td><td align="right">Showing ';
+                str+=response["pagination"].current*response["pagination"].perPage-4+' to ';
+                lastrow=response["pagination"].current*response["pagination"].perPage;
+                 if(lastrow>response["pagination"].totalrows){
+                str+=response["pagination"].totalrows;
+              }
+              else{
+                str+=response["pagination"].current*response["pagination"].perPage;
+              }
+                str+=' of '+response["pagination"].totalrows+' entries</td></tr>';
+                for(let index = 0; index < (responselength-1); index++) {
+                  str+='<tr style="border:ridge;"  data-href="static/htmlfiles/doctor1.html?id='+response[index].doctor_id;
+                  str+='"><td><object style="padding-top: 2px;" data="static/images/default.jpg" type="image/jpg" width= "100" height="90"><img src="static/images/default.jpg"></object></td><td><div class="docname"><b>'+response[index].docname+'</b></div><div class="docplace"><span id="placename">'+response[index].docplace+'</span></div><div class="distance"><span id="distance">'+calculatemiles(distanceArray[index].distance.text)+',</span>&nbsp<span>'+distanceArray[index].duration.text+'</span></div><b><div class="docrating"  id="searchdocrating"><span class="rating" style="display: inline-block">';
+                  if (!response[index].rating){
+                  str+='0';}
+                  else{
+                  str+=response[index].rating;
+                  }
+                str+='&nbsp&nbsp</span><span class="sstars" style="display: inline-block">';
+                if (!response[index].rating){
+                  str+='0';}
+                  else{
+                  str+=response[index].rating;
+                  }
+                  str+='</span><span class="reviewcount" style="display: inline-block;">&nbsp(';
+                  if (!response[index].reviewcount){
+                  str+='0';}
+                  else{
+                  str+=response[index].reviewcount;
+                  }
+                  str+=')</span></div></td></tr>';
+      }  
+      str+='</tbody></table></div>';
+      document.getElementById('docsearchresults').innerHTML+=str;
+      checkContainer();
+      
+                }
+              }
+        );
+}
+    },
+        error: function(error) {
+            console.log(error);
+         }
+    });
+  
+}
+
+
+//pagination
+function nextPage(){
+  pageNum+=1;
+  searchResults();
+}
+
+function prevPage(){
+  pageNum-=1;
+  searchResults();
+}
+
+
+function calculatemiles(kilomet){
+const milesfactor = 0.621371;
+            var val=parseInt(kilomet.slice(0,-3).replace(",", ""));
+            miles=(val*milesfactor).toFixed(2);
+            miles=miles+" mi";
+            return miles;
+}
+
+function bestDoctors(){
+  var data ={};
+  data.speciality=$('#bdspeciality').val();
+    $.ajax({
+        type: 'POST',
+        data: JSON.stringify(data),
+        contentType: "application/json",
+        dataType:'json',
+        url: '/bestDoctors',                  
+        success: function(response){
+
+          var str='';
+          $("#bestdoctortable").empty();
+       if(response.length > 0){
+          for(let index = 0; index < response.length; index++) {
+            
+            str+='<tr  style="border:ridge;" data-href="static/htmlfiles/doctor1.html?id='+response[index].doctor_id;
+            str+='"><td><object style="padding-top: 2px;" data="static/images/default.jpg" type="image/jpg" width= "100" height="90"><img src="static/images/default.jpg"></object></td><td><div class="docname"><b>'+response[index].docname+'</b></div><div class="docplace"><span id="placename">'+response[index].placename+'</span></div><div class="bdocrating" id="bdocrating"><span class="rating" style="display:inline-block">'+response[index].rating+'&nbsp&nbsp</span><span class="stars" style="display: inline-block">'+response[index].rating+'</span><span class="reviewcount" style="display: inline-block;">&nbsp('+response[index].reviewcount+')</span></div></td></tr>';
+}  
+
+$("#bestdoctortable").append(str);
+checkbdContainer();
+
+}
+    },
+        error: function(error) {
+            console.log(error);
+         }
+    });
+  
+}
+
+function checkbdContainer(){
+
+    $('span.stars').stars();
+    $('*[data-href]').on('click', function() {
+        position=$(this).data("href").indexOf('?');
+      newurl=$(this).data("href").substring(0,position);
+      doctor_id=$(this).data("href").substring($(this).data("href").indexOf('=')+1);
+      sessionStorage.setItem("doctor_id",doctor_id);
+      //alert(newurl);alert(doctor_id);
+        window.location = newurl;
+    });
+}
+/// display star rating
+
+function checkContainer () {
+    $('span.sstars').stars();  
+    $('*[data-href]').on('click', function() {
+      position=$(this).data("href").indexOf('?');
+      newurl=$(this).data("href").substring(0,position);
+      doctor_id=$(this).data("href").substring($(this).data("href").indexOf('=')+1);
+      sessionStorage.setItem("doctor_id",doctor_id);
+      //alert(newurl);alert(doctor_id);
+        window.location = newurl;
+
+    });
+ 
+}
+
+$.fn.stars = function() {
+    return $(this).each(function() {
+        // Get the value
+        var val = parseFloat($(this).html());
+        // Make sure that the value is in 0 - 5 range, multiply to get width
+        var size = Math.max(0, (Math.min(5, val))) * 16;
+        // Create stars holder
+        var $span = $('<span />').width(size);
+        // Replace the numerical value with stars
+        $(this).html($span);
+    });
+}
+
+
+
+//find user location
+function geoFindMe() {
+
+  //const status = document.querySelector('#status');
+  //const mapLink = document.querySelector('#map-link');
+
+  //mapLink.href = '';
+  //mapLink.textContent = '';
+
+  function success(position) {
+    const latitude  = position.coords.latitude;
+    const longitude = position.coords.longitude;
+    origin1 = new google.maps.LatLng(latitude,longitude);
+    sessionStorage.setItem('latitude',latitude);
+    sessionStorage.setItem('longitude',longitude);
+  }
+
+  function error() {
+    //status.textContent = 'Unable to retrieve your location';
+  }
+
+  if(!navigator.geolocation) {
+    //status.textContent = 'Geolocation is not supported by your browser';
+  } else {
+    //status.textContent = 'Locating…';
+    navigator.geolocation.getCurrentPosition(success, error);
+  }
+
+}
+
+//map display
+
+function initMap() {
+  var center = {lat: window.docsearchdetails[0].latitude, lng: window.docsearchdetails[0].longitude};
+  
+var map = new google.maps.Map(document.getElementById('map'), {
+    zoom: 8,
+    center: center
+  });
+
+var infowindow =  new google.maps.InfoWindow({});
+
+  const markers = locations.map((location, i) => {
+    return new google.maps.Marker({
+      position: location,
+      title: docsearchdetails[i].docname
+      //,label:docsearchdetails[i].docname
+    });
+  });
+  // Add a marker clusterer to manage the markers.
+  new MarkerClusterer(map, markers, {
+    imagePath:
+      "https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m",
+  });
+for (count = 0; count < window.docsearchdetails.length; count++) {
+  google.maps.event.addListener(markers[count], 'click', (function (marker, count) {
+      return function () {
+        infowindow.setContent("<div><b>"+docsearchdetails[count].docname+"</b><br>"+docsearchdetails[count].address+"<br>"+docsearchdetails[count].city+"<br>"+docsearchdetails[count].docplace+"<br>"+docsearchdetails[count].zip+"<br><a href='#' onclick='calcRoute(37.7683909618184, -122.51089453697205,"+docsearchdetails[count].latitude+","+docsearchdetails[count].longitude+")'>Get Directions</a></div");
+        infowindow.open(map, marker);
+      }
+    })(markers[count], count));
+}
+
+}
+
+//clear form fields
+function clearSelection() {
+
+document.getElementById('docsearchresults').innerHTML="";
+["speciality", "zipcode", "docname"].forEach(function(id) {
+        document.getElementById(id).value = "";
+      });
+document.getElementById('docsearchresults').innerHTML="";
+//sessionStorage.clear();
+ sessionStorage.removeItem('location');
+  sessionStorage.removeItem('doctor_id');
+}
+
+
+</script>
+
+<div class="tab">
+<label style="font-size: 25px;">FindMyDoctor</label>
+  <div align="right" style="padding-right: 20px;padding-top: 15px;font-size: 15px;">
+  <a style="padding-left: 5px;color: white;" href="">SignUp</a>
+  <a style="border-left:solid;padding-left: 5px;color: white;" href="static/htmlfiles/Password_validation.html">LogIn</a>
+</div>
+<div style="padding-right: 20px;padding-top: 5px;" align="right"><button class="tablinks" onclick="openPage('home',event)" id="defaultOpen">Home</button><button class="tablinks" onclick="openPage('symptoms',event)">SymptomsChecker</button></div>
+</div>
+
+
+<div id="home" class="tabcontent" style="width:100%;min-height:100%;">
+<div class="container-home" style="width:100%;min-height: 100%;">
+<section class="left" style="padding-left: 100px;height:100%;" align="center">
+<table style="width:60%;border-collapse:separate;border-spacing: 0 1em;">
+ <tr>
+    <td class="col2" align="center"><select style="width: 185px;height:25px;" name="speciality" id="speciality" placeholder="Speciality">
+</select></td> 
+<td class="col2" align="center"><select style="width: 185px;height:25px;" name="gender" id="gender">
+      <option value="All">Gender-All</option>
+  <option value="Male">Male</option>
+  <option value="Female">Female</option>
+</select></td> 
+  </tr>
+  <tr  style="border:solid;">
+    <td class="col2"   align="center"><input type="text" placeholder="Doctor Name" name="docname" id="docname" ></td> 
+    <td class="col2"  align="center"><input type="text" placeholder="ZipCode" name="zipcode" id="zipcode" ></td> 
+  </tr>
+  <tr class="blank_row">
+    <td colspan="2"></td>
+</tr>
+  <tr><td colspan="2" align="center">
+  <button class="searchbtn" onclick="searchResults()">Search</button>
+</td></tr>
+</table>
+<!--
+<div id="userlocation" align="left">
+<button id = "find-me" onclick="geoFindMe()" visibility="hidden">Show my location</button><br>
+<p id = "status"></p>
+<a id = "map-link" target="_blank"></a></div>-->
+
+
+<div class="docsearchresults"  id="docsearchresults" align="left">
+</div>
+
+<div id="map"></div>
+
+
+
+</section>
+<section class="right" style="height:100%;">
+ 
+
+
+  <h3 align="center">Best Rated Doctors</h3><br>
+
+  <div class="bestdoc" align="center">
+    <div><select style="width: 185px;height:25px;" name="bdspeciality" id="bdspeciality" onchange="bestDoctors()">
+</select></div><br>
+
+
+<div class="docdetails">
+   <table style="width: 100%;" id="bestdoctortable">
+   </table>
+</div>
+</div>
+</section></div>
+</div><br><br><br>
+
+
+<div id="symptoms" class="tabcontent" style="width:100%;min-height:100%;">
+<div class="image-container set-full-height" style="background-image: url('assets/img/wizard-book.jpg')">
+      <!--   Creative Tim Branding   -->
+
+    <!--  Made With Material Kit  -->
+    <a href="http://demos.creative-tim.com/material-kit/index.html?ref=material-bootstrap-wizard" class="made-with-mk">
+      <div class="brand">MK</div>
+      <div class="made-with">Made with <strong>Material Kit</strong></div>
+    </a>
+
+      <!--   Big container   -->
+      <div class="container">
+          <div class="row">
+            <div class="col-sm-12 col-sm-offset-1">
+                <!--      Wizard container        -->
+                <div class="wizard-container">
+                    <div class="card wizard-card" data-color="red" id="wizard">
+                        <form action="" method="">
+                    <!--        You can switch " data-color="blue" "  with one of the next bright colors: "green", "orange", "red", "purple"             -->
+
+                          <div class="wizard-header">
+                              <h3 class="wizard-title">
+                                Symtpoms Checker
+                              </h3>
+                  <h5>Identify possible conditions and treatment related to your symptoms
+                          </div>
+                <div class="wizard-navigation">
+                  <ul>
+                                  <li><a href="#details" data-toggle="tab">Info</a></li>
+                                  <li><a href="#captain" data-toggle="tab">Add Symptoms</a></li>
+                                  <li><a href="#description" data-toggle="tab">Conditions</a></li>
+                              </ul>
+                </div>
+
+                            <div class="tab-content">
+                                <div class="tab-pane" id="details">
+                                  <div class="row">
+                                    <div class="col-sm-12">
+                                        <h4 class="info-text"> Let's start with the basic details.</h4>
+                                    </div>
+                                    <div class="col-sm-4"></div>
+                                      <div class="col-sm-2">
+                                        <br>
+                        <div class="input-group">
+                          <span class="input-group-addon">
+                          </span>
+                          <div class="form-group label-floating">
+                            <h4>AGE</h4>
+                            <br>
+                                                  <input name="name" type="number" min=1 max=125 class="form-control">
+                                              </div>
+                        </div>
+                                      </div>
+                                      <div class="col-sm-1"></div>
+                                      <div class="col-sm-4">
+                                        <br>
+                        <div class="form-group label-floating">
+                          <h4>GENDER</h4>
+                          <br>
+                          <div class="radio">
+                            <label>
+                              <input type="radio" name="optionsRadios">
+                              Male
+                            </label>
+                          </div>
+                          <div class="radio">
+                            <label>
+                              <input type="radio" name="optionsRadios" checked="true">
+                              Female
+                            </label>
+                          </div>
+                                          </div>
+                                      </div>
+                                  </div>
+                                </div>
+                                <div class="tab-pane" id="captain">
+                                  <div class="row">
+                                      <div class="col-sm-5">
+                        <div class="input-group">
+                          <span class="input-group-addon">
+                          </span>                         
+                                            <div class="form-group label-floating">                                               
+                            <h5>Add Symptoms</h5>
+                            <input class="col-sm-12" list="symptomsList" name="symptom" id="symptom" onchange="onChangeSymptoms()">
+                            <datalist id="symptomsList">
+                              <option disabled="" selected=""></option>
+                                                    <option value="Afghanistan"> Afghanistan </option>
+                                                    <option value="Albania"> Albania </option>
+                                                    <option value="Algeria"> Algeria </option>
+                                                    <option value="American Samoa"> American Samoa </option>
+                                                    <option value="Andorra"> Andorra </option>
+                                                    <option value="Angola"> Angola </option>
+                                                    <option value="Anguilla"> Anguilla </option>
+                                                    <option value="Antarctica"> Antarctica </option>
+                                                    <option value="...">...</option>
+                            </datalist>
+
+                                            </div>
+                        </div>
+                                      </div>
+
+                      <div class="col-sm-2">
+                        <div class="form-group label-floating">
+                          <br>                          
+                                          <button class="btn btn-success">Add >></button>
+                                          </div>
+                                      </div>
+
+                                      <div class="col-sm-5">
+                        <div class="form-group label-floating">
+                          <h4>Symptoms added</h4>
+                          <br>
+                          <div class="radio">
+                            <label>
+                              <input type="radio" name="optionsRadios">
+                              Male
+                            </label>
+                          </div>
+                          <div class="radio">
+                            <label>
+                              <input type="radio" name="optionsRadios" checked="true">
+                              Female
+                            </label>
+                          </div>
+                                          </div>
+                                      </div>
+                                  </div>
+                                </div>
+                                <div class="tab-pane" id="description">
+                                    <div class="row">
+                                        <h4 class="info-text"> Drop us a small description.</h4>
+                                        <div class="col-sm-6 col-sm-offset-1">
+                                          <div class="form-group">
+                                                <label>Room description</label>
+                                                <textarea class="form-control" placeholder="" rows="6"></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4">
+                                          <div class="form-group">
+                                                <label class="control-label">Example</label>
+                                                <p class="description">"The room really nice name is recognized as being a really awesome room. We use it every sunday when we go fishing and we catch a lot. It has some kind of magic shield around it."</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="wizard-footer">
+                                <div class="pull-right">
+                                      <input type='button' class='btn btn-next btn-fill btn-danger btn-wd' name='next' value='Next' />
+                                      <input type='button' class='btn btn-finish btn-fill btn-danger btn-wd' name='finish' value='Finish' />
+                                  </div>
+                                  <div class="pull-left">
+                                      <input type='button' class='btn btn-previous btn-fill btn-default btn-wd' name='previous' value='Previous' />
+                                  </div>
+                                  <div class="clearfix"></div>
+                            </div>
+                        </form>
+                    </div>
+                </div> <!-- wizard container -->
+            </div>
+        </div> <!-- row -->
+    </div> <!--  big container -->
+
+      <div class="footer">
+      </div>
+  </div>
+</div>
+
+<footer>
+<div style="padding-top: 20px;" align="center">
+  <div id="newsletter" align="center"><label>Subscribe to our newsletter</label>
+<br><input type="email" placeholder="abc@efg.com" name="email" id="email" >
+  <button class="subscribebtn" onclick="">Subscribe</button> </div>
+  <div class="containerf"  style="padding-top: 40px;">
+  <div><b>About</b></div>
+  <div><b>Contact Us</b><br>(207)9876543<br>findmydoc@gmail.com</div>  
+  <div><b>Follow Us</b><br><!-- Add font awesome icons -->
+<a href="#" class="fa fa-facebook"></a>
+<a href="#" class="fa fa-twitter"></a>
+<a href="#" class="fa fa-instagram"></a></div>
+</div>
+  </div><br><br></footer>
+</body>
+</html>
+</body>
+</html> 
+
