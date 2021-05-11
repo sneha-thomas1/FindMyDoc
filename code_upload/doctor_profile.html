@@ -1,0 +1,71 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Doctor Profile</title>
+    <style>
+        .profile {
+            border: 2px outset black;
+            background-color: lightcyan;
+            text-align: left;
+        }
+
+        .a {
+            font-size: large;
+        }
+
+        #map {
+            height: 400px;
+            /* The height is 400 pixels */
+            width: 100%;
+            /* The width is the width of the web page */
+        }
+
+        label[id="myDynamicTable"] {
+            width: 400%;
+            height: 400%;
+            /* border : outset;*/
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+</head>
+<body>
+    <div class="profile" id="profile">
+        <h1 id="Name"></h1>
+        <h3 id="phone_no"></h3>
+        <p id="address"></p>
+        <p id="description"></p>
+        <div id="map"></div>
+        <br>
+        <br>
+        <a style="position: absolute; left: 10px; font:caption" href="rating.html">Rate This Doctor</a>
+        <br>
+        <br>
+
+        <br>
+        <div id="avg">
+        <h4 style="position: absolute; left: 140px; font:bold;font-size:medium" id="avg_review"></h4>
+        </div>
+        <br />
+        <h3 style="position: absolute;left: 10px;">Reviews:</h3>
+        <br>
+        <br>
+        <br>
+        <div style="left: 10px;font-size:large" id="review_display">
+        </div>
+        <br>
+        <br>
+    </div>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyARQ43vJXiP2wIjTi3SRd7e-dWD4rRBIzE&callback=initMap&libraries=&v=weekly"
+            async></script>
+    <script src="doctor_profile.js"></script>
+</body>
+</html>
+
+
+    
+
