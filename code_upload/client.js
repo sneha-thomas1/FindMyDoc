@@ -212,33 +212,6 @@ function login()
 }
 
 
-/*function update()
-{
-    var xhttp = new XMLHttpRequest();
-
-    xhttp.onreadystatechange = function ()
-    {
-        if (this.readyState == 4 && this.status == 200)
-        {
-            var result = this.responseText;
-            alert(result);
-        }
-    }
-
-    var ht = document.getElementById("height").value;
-    var wt = document.getElementById("weight").value;
-    var temp = document.getElementById("temp").value;
-    var pulse = document.getElementById("pulse").value;
-    var bp = document.getElementById("bp").value;
-    var meds = document.getElementById("medications").value;
-    var drnotes = document.getElementById("drnotes").value;
-
-    xhttp.open("POST", "/update", true);
-    xhttp.setRequestHeader("Content-Type", "application/json");
-    xhttp.send('{ "height":"'+ht+'", "weight":"'+wt+'", "temp":"'+temp+'", "pulse":"'+pulse+'", "bp":"'+bp+'", "medications":"'+meds+'", "drnotes":"'+drnotes+'" }');
-}
-
-
 /*function reset_demo() {
 
     document.getElementById("firstname").value = "";
