@@ -15,7 +15,9 @@ function initMap() { }// now it IS a function and it is in global
 function page_load() {
     open_profile();
     average_review();
+    display_review_analysis();
     display_review();
+  
     
 }
 
@@ -27,7 +29,7 @@ function open_profile() {
             var doctor_detail = JSON.parse(this.responseText);
             //console.log(doctor_detail);
 
-       
+            var element = document.getElementById("photo_display");
 
             doctor_detail.forEach((row) => {
 
@@ -35,6 +37,22 @@ function open_profile() {
                 document.getElementById("phone_no").innerHTML = 'Contact : ' +row.Phone;
                 document.getElementById("address").innerHTML = 'Address : '+ row.Address_1 + ', ' + row.City + ', ' + row.State + ', ' + row.Zip;
                 document.getElementById("description").innerHTML = row.description;
+
+                //console.log(row.image.data);
+               
+                let TYPED_ARRAY = new Uint8Array(row.image.data);
+                const STRING_CHAR = String.fromCharCode.apply(null, TYPED_ARRAY);
+
+                let base64String = btoa(STRING_CHAR);
+
+
+
+
+               
+
+                console.log(base64String);
+
+                document.getElementById("doctorphoto").src = ;
 
                 // Get the location of the doctor
 
@@ -71,7 +89,7 @@ function display_review() {
         if (this.readyState == 4 && this.status == 200) {
 
             var doctor_review = JSON.parse(this.responseText);
-            console.log(doctor_review);
+            //console.log(doctor_review);
 
 
 
@@ -240,7 +258,7 @@ function average_review() {
             console.log(avg_star);
 
             avg_star.forEach((row) => {
-                document.getElementById("avg_review").innerHTML = 'Average Review(' + (Math.round(row.avg_rate * 10)/10) +')';//avg_star.avg_rate;
+                document.getElementById("avg_review").innerHTML = 'Average (' + (Math.round(row.avg_rate * 10)/10) +')';//avg_star.avg_rate;
 
                 var element = document.getElementById("avg");
                 var num = 0;
@@ -285,6 +303,99 @@ function average_review() {
     console.log(doc_id);
 
     xhttp.open("POST", "/average_review", true);
+    xhttp.setRequestHeader("Content-Type", "application/json");
+    xhttp.send('{"Doc_id":"' + doc_id + '"}');
+
+}
+
+
+function display_review_analysis() {
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+
+            var rating_results = JSON.parse(this.responseText);
+            
+            console.log(rating_results);
+
+            let total_ratings = 0;
+
+            var found1 = found2 = found3 = found4 = found5 =false;
+           
+
+            rating_results.forEach((row) => {
+
+                total_ratings = total_ratings + row.input;
+            });
+
+            document.getElementById("total_reviews").innerHTML = 'based on ' + total_ratings + ' reviews';
+            console.log(total_ratings);
+            rating_results.forEach((row) => {
+
+                
+                if (row.rating == 5) {
+                    document.getElementById("rate5").innerHTML = row.input;
+                    let width = (row.input / total_ratings) * 100;
+                    document.getElementById("bar5").style.width = width + '%';
+                    found5 = true;
+
+                }
+                if (row.rating == 4) {
+                    document.getElementById("rate4").innerHTML = row.input;
+                    let width = (row.input / total_ratings) * 100;
+                    document.getElementById("bar4").style.width = width + '%';
+                    found4 = true;
+                }
+
+                if (row.rating == 3) {
+                    document.getElementById("rate3").innerHTML = row.input;
+                    let width = (row.input / total_ratings) * 100;
+                    document.getElementById("bar3").style.width = width + '%';
+                    found3 = true;
+                }
+
+                if (row.rating == 2) {
+                    document.getElementById("rate2").innerHTML = row.input;
+                    let width = (row.input / total_ratings) * 100;
+                    document.getElementById("bar2").style.width = width + '%';
+                    found2 = true;
+                }
+
+                if (row.rating == 1) {
+                    document.getElementById("rate1").innerHTML = row.input;
+                    let width = (row.input / total_ratings) * 100;
+                    document.getElementById("bar1").style.width = width + '%';
+                    found1 = true;
+                }
+
+            });
+
+
+            if (found5 == false) {
+                document.getElementById("rate5").innerHTML = '0';            
+                document.getElementById("bar5").style.width =  '0%';
+            }
+            if (found4 == false) {
+                document.getElementById("rate4").innerHTML = '0';
+                document.getElementById("bar4").style.width = '0%';
+            }
+            if (found3 == false) {
+                document.getElementById("rate3").innerHTML = '0';
+                document.getElementById("bar3").style.width = '0%';
+            }
+            if (found2 == false) {
+                document.getElementById("rate2").innerHTML = '0';
+                document.getElementById("bar2").style.width = '0%';
+            }
+            if (found1 == false) {
+                document.getElementById("rate1").innerHTML = '0';
+                document.getElementById("bar1").style.width = '0%';
+            }
+        }
+    }
+    var doc_id = sessionStorage.getItem("doctor_id");
+
+    xhttp.open("POST", "/display_review_analysis", true);
     xhttp.setRequestHeader("Content-Type", "application/json");
     xhttp.send('{"Doc_id":"' + doc_id + '"}');
 
