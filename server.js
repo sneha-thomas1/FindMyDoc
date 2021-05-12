@@ -583,6 +583,36 @@ app.post('/average_review',function(req,res){
         });
 
 })  
+app.post('/display_review_analysis',function(req,res){
+        res.statusCode = 200;
+        res.setHeader('Content-Type', 'application/json');
+
+        var content = '';
+        req.on('data', function (data) {
+            content += data;
+
+            var obj = JSON.parse(content);
+            var local_con = con.getConnection();
+
+            console.log(obj.Doc_id);
+
+            local_con.query('select count(*) as input,rating ,doctor_id from ratings where doctor_id=? group by rating order by rating desc;', [obj.Doc_id], function (error, results, fields) {
+                if (error) {
+                    console.log(`Error occured in average calculation!`);
+                }
+                else
+                    var response_result = JSON.stringify(results);
+                res.end(response_result);
+
+                console.log(response_result);
+
+            });
+
+            local_con.end();
+            // res.end("Review submitted successfully!");
+        });
+
+    })
 
 //rasika code end
 
