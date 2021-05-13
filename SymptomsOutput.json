@@ -1,25 +1,5 @@
 [
   {
-    "text": "What is the age?",
-    "laytext": "Age",
-    "name": "Age",
-    "type": "integer",
-    "min": 18,
-    "max": 120,
-    "default": 35,
-    "category": "Constitutional and vital signs physical examination",
-    "alias": "",
-    "wiki": "",
-    "wiki2": "",
-    "wiki3": "",
-    "wiki4": "",
-    "subcategory1": "",
-    "subcategory2": "",
-    "subcategory3": "",
-    "subcategory4": "",
-    "IsPatientProvided": false
-  },
-  {
     "text": "What is the BMI?",
     "laytext": "What is your BMI  (body mass index, calculate by either of these formulas  BMI = 703 ? weight (lbs) / [height (in)]2 or  BMI = weight (kg) / [height (m)]2)",
     "name": "BMI",
@@ -15205,41 +15185,6 @@
     "wiki3": "",
     "wiki4": "",
     "IsPatientProvided": true
-  },
-  {
-    "text": "What is patient's gender?",
-    "laytext": "What is your gender?",
-    "name": "Gender",
-    "type": "categorical",
-    "default": 2,
-    "choices": [
-      {
-        "text": "Data unavailable (i.e. unable to assess).",
-        "laytext": "Skip this question.",
-        "value": 1
-      },
-      {
-        "text": "Male.",
-        "laytext": "Male.",
-        "value": 2
-      },
-      {
-        "text": "Female.",
-        "laytext": "Female.",
-        "value": 3
-      }
-    ],
-    "category": "Constitutional and vital signs physical examination",
-    "alias": "",
-    "wiki": "",
-    "subcategory1": "",
-    "subcategory2": "",
-    "subcategory3": "",
-    "wiki2": "",
-    "wiki3": "",
-    "wiki4": "",
-    "subcategory4": "",
-    "IsPatientProvided": false
   },
   {
     "text": "What is the patient's race?",
