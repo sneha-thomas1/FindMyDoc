@@ -335,7 +335,7 @@ function display_review_analysis() {
             console.log("response from server");
             console.log(total_ratings);
             rating_results.forEach((row) => {
-alert(row.rating);
+//alert(row.rating);
                 
                 if (row.rating == 5) {
                     document.getElementById("rate5").innerHTML = row.input;
