@@ -32,6 +32,29 @@ http://www.tooplate.com/view/2098-health
           .btn:hover {
                background:#fff;
           }
+          span.stars, span.stars span {
+         display: block;
+         background: url(../images/stars.png) 0 -16px repeat-x;
+         width: 80px;
+         height: 16px;
+     }
+     span.stars span {
+         background-position: 0 0;
+     }
+     span.sstars, span.sstars span {
+         display: block;
+         background: url(../images/stars.png) 0 -16px repeat-x;
+         width: 80px;
+         height: 16px;
+     }
+     span.sstars span {
+         background-position: 0 0;
+     }
+     .btn-success:before {
+  background: grey;
+}
+
+
      </style>
 </head>
 <body id="top" data-spy="scroll" data-target=".navbar-collapse" data-offset="50">
@@ -116,79 +139,9 @@ http://www.tooplate.com/view/2098-health
      <!-- TEAM -->
      <section id="team" data-stellar-background-ratio="1">
           <div class="container">
-               <div class="row">
-
-                    <div class="col-md-6 col-sm-6">
-                         <div class="about-info">
-                              <h2 class="wow fadeInUp" data-wow-delay="0.1s">Our Top-Rated Doctors</h2>
-                              <select name="bdspeciality" id="bdspecialities" class="form-control" placeholder="Speciality" onchange="bestDoctors()">
-                              </select><br>
-                         </div>
-                    </div>
-
-                    <div class="clearfix"></div>
-
-                    <div class="col-md-4 col-sm-6">
-                         <div class="team-thumb wow fadeInUp" data-wow-delay="0.2s">
-                              <img src="images/team-image1.jpg" class="img-responsive" alt="">
-
-                                   <div class="team-info">
-                                        <h3>Nate Baston</h3>
-                                        <p>General Principal</p>
-                                        <div class="team-contact-info">
-                                             <p><i class="fa fa-phone"></i> 010-020-0120</p>
-                                             <p><i class="fa fa-envelope-o"></i> <a href="#">general@company.com</a></p>
-                                        </div>
-                                        <ul class="social-icon">
-                                             <li><a href="#" class="fa fa-linkedin-square"></a></li>
-                                             <li><a href="#" class="fa fa-envelope-o"></a></li>
-                                        </ul>
-                                   </div>
-
-                         </div>
-                    </div>
-
-                    <div class="col-md-4 col-sm-6">
-                         <div class="team-thumb wow fadeInUp" data-wow-delay="0.4s">
-                              <img src="images/team-image2.jpg" class="img-responsive" alt="">
-
-                                   <div class="team-info">
-                                        <h3>Jason Stewart</h3>
-                                        <p>Pregnancy</p>
-                                        <div class="team-contact-info">
-                                             <p><i class="fa fa-phone"></i> 010-070-0170</p>
-                                             <p><i class="fa fa-envelope-o"></i> <a href="#">pregnancy@company.com</a></p>
-                                        </div>
-                                        <ul class="social-icon">
-                                             <li><a href="#" class="fa fa-facebook-square"></a></li>
-                                             <li><a href="#" class="fa fa-envelope-o"></a></li>
-                                             <li><a href="#" class="fa fa-flickr"></a></li>
-                                        </ul>
-                                   </div>
-
-                         </div>
-                    </div>
-
-                    <div class="col-md-4 col-sm-6">
-                         <div class="team-thumb wow fadeInUp" data-wow-delay="0.6s">
-                              <img src="images/team-image3.jpg" class="img-responsive" alt="">
-
-                                   <div class="team-info">
-                                        <h3>Miasha Nakahara</h3>
-                                        <p>Cardiology</p>
-                                        <div class="team-contact-info">
-                                             <p><i class="fa fa-phone"></i> 010-040-0140</p>
-                                             <p><i class="fa fa-envelope-o"></i> <a href="#">cardio@company.com</a></p>
-                                        </div>
-                                        <ul class="social-icon">
-                                             <li><a href="#" class="fa fa-twitter"></a></li>
-                                             <li><a href="#" class="fa fa-envelope-o"></a></li>
-                                        </ul>
-                                   </div>
-
-                         </div>
-                    </div>
-                    
+               <div class="row" >
+                <div class="col-md-6 col-sm-6"><div class="about-info"><h2 class="wow fadeInUp" data-wow-delay="0.1s">Our Top-Rated Doctors</h2><select name="bdspeciality" id="bdspecialities" class="form-control" style="width:200px;" placeholder="Speciality" onchange="bestDoctors()"></select><br></div></div><div class="clearfix"></div>
+                <div id="bestdoctors"></div>     
                </div>
           </div>
      </section>
@@ -239,7 +192,7 @@ http://www.tooplate.com/view/2098-health
                                    <div class="author">
                                         <img src="images/santaclara.png" class="img-responsive" alt="">
                                         <div class="author-info">
-                                             <p>Santa Clara County Public Health</p>
+                                             <p>Santa Clara County</p>
                                         </div>
                                    </div>
                               </div>
@@ -255,7 +208,7 @@ http://www.tooplate.com/view/2098-health
                               <div class="news-info">
                                    <span>May 09, 2021</span>
                                    <h3><a href="https://medcitynews.com/2021/05/mayo-clinic-finds-algorithm-helped-clinicians-detect-heart-disease-as-part-of-broader-ai-diagnostics-push/">Algorithm to detect heart diseases</a></h3>
-                                   <p>Mayo Clinic shared results of a study showing that an AI tool developed by the system could be used to improve diagnosis of low ejection fraction, a type of heart disease.</p>
+                                   <p>Mayo Clinic shared results of a study showing that an AI tool developed by the system could be used to improve diagnosis of low ejection fraction.</p>
                                    <div class="author">
                                         <img src="images/mayoclinic.jpg" class="img-responsive" alt="">
                                         <div class="author-info">
@@ -271,75 +224,12 @@ http://www.tooplate.com/view/2098-health
      </section>
 
 
-     <!-- MAKE AN APPOINTMENT -->
-     <section id="appointment" data-stellar-background-ratio="3">
-          <div class="container">
-               <div class="row">
-
-                    <div class="col-md-6 col-sm-6">
-                         <img src="images/appointment-image.jpg" class="img-responsive" alt="">
-                    </div>
-
-                    <div class="col-md-6 col-sm-6">
-                         <!-- CONTACT FORM HERE -->
-                         <form id="appointment-form" role="form" method="post" action="#">
-
-                              <!-- SECTION TITLE -->
-                              <div class="section-title wow fadeInUp" data-wow-delay="0.4s">
-                                   <h2>Make an appointment</h2>
-                              </div>
-
-                              <div class="wow fadeInUp" data-wow-delay="0.8s">
-                                   <div class="col-md-6 col-sm-6">
-                                        <label for="name">Name</label>
-                                        <input type="text" class="form-control" id="name" name="name" placeholder="Full Name">
-                                   </div>
-
-                                   <div class="col-md-6 col-sm-6">
-                                        <label for="email">Email</label>
-                                        <input type="email" class="form-control" id="email" name="email" placeholder="Your Email">
-                                   </div>
-
-                                   <div class="col-md-6 col-sm-6">
-                                        <label for="date">Select Date</label>
-                                        <input type="date" name="date" value="" class="form-control">
-                                   </div>
-
-                                   <div class="col-md-6 col-sm-6">
-                                        <label for="select">Select Department</label>
-                                        <select class="form-control">
-                                             <option>General Health</option>
-                                             <option>Cardiology</option>
-                                             <option>Dental</option>
-                                             <option>Medical Research</option>
-                                        </select>
-                                   </div>
-
-                                   <div class="col-md-12 col-sm-12">
-                                        <label for="telephone">Phone Number</label>
-                                        <input type="tel" class="form-control" id="phone" name="phone" placeholder="Phone">
-                                        <label for="Message">Additional Message</label>
-                                        <textarea class="form-control" rows="5" id="message" name="message" placeholder="Message"></textarea>
-                                        <button type="submit" class="form-control" id="cf-submit" name="submit">Submit</button>
-                                   </div>
-                              </div>
-                        </form>
-                    </div>
-
-               </div>
-          </div>
-     </section>
-
+     
 
      <!-- GOOGLE MAP -->
      <section id="google-map">
-     <!-- How to change your own map point
-            1. Go to Google Maps
-            2. Click on your location point
-            3. Click "Share" and choose "Embed map" tab
-            4. Copy only URL and paste it within the src="" field below
-	-->
-          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3647.3030413476204!2d100.5641230193719!3d13.757206847615207!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xf51ce6427b7918fc!2sG+Tower!5e0!3m2!1sen!2sth!4v1510722015945" width="100%" height="350" frameborder="0" style="border:0" allowfullscreen></iframe>
+     <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3172.309221761402!2d-121.88326018545033!3d37.33518737984191!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x808fccb864de43d5%3A0x397ffe721937340e!2sSan%20Jos%C3%A9%20State%20University!5e0!3m2!1sen!2sus!4v1620717296493!5m2!1sen!2sus"  width="100%" height="350" frameborder="0" style="border:0" allowfullscreen></iframe>
+     
      </section>           
 
 
@@ -370,12 +260,10 @@ http://www.tooplate.com/view/2098-health
 
      
      <script>
-          $(document).ready(function(){
-            //$("#doc_search_box").load("doctor_search_box.html"); 
+          $(document).ready(function(){ 
             $("#header").load("header.html"); 
             $("#footer").load("footer.html"); 
             doctorSpeciality();
-            changeLanguage();
           })
 
           function doctorSpeciality(){
@@ -392,7 +280,7 @@ http://www.tooplate.com/view/2098-health
                          $("#bdspecialities").empty();
                          $("#bdspecialities").append(str);
                          allstr+=str;
-                         console.log(allstr);
+                         //console.log(allstr);
                          $("#speciality").empty();
                          $("#speciality").append(allstr);
                          bestDoctors();
@@ -405,8 +293,9 @@ http://www.tooplate.com/view/2098-health
               });
           }
 
-          function bestDoctors(){
+function bestDoctors(){
   var data ={};
+  alert("bestdoctors");
   data.speciality=$('#bdspecialities').val();
     $.ajax({
         type: 'POST',
@@ -415,33 +304,20 @@ http://www.tooplate.com/view/2098-health
         dataType:'json',
         url: '/bestDoctors',                  
         success: function(response){
-        //alert("bd response");
           var str='';
-          //$("#bestdoctortable").empty();
+          var delay=0.4;
           responselength=Object.keys(response).length;
        if(responselength > 0){
-          //alert(responselength);
-        //alert("bd response length");
           for(let index = 0; index < responselength; index++) {
-            //alert("best doctors");
-            str+='<tr  style="border:ridge;" data-href="doctor1.html?id='+response[index].doctor_id;
-            str+='"><td>';
-              if(!response[index].doctor_photo){
-                str+='<img style="padding-top: 2px;" src="images/default.jpg" type="image/jpg" width= "100" height="90">';
-                }
-                else{
-                  console.log('Base64 String - ', response[index].doctor_photo);
-                  //data:image/png;base64,
-                  str+='<img style="padding-top: 2px;" src="data:image/png;base64,"'+response[index].doctor_photo+'" type="image/png" width= "100" height="90">';
-                  }
-            str+='</td><td><div class="docname"><b>'+response[index].docname+'</b></div><div class="docplace"><span id="placename">'+response[index].placename+'</span></div><div class="bdocrating" id="bdocrating"><span class="rating" style="display:inline-block">'+response[index].rating+'&nbsp&nbsp</span><span class="stars" style="display: inline-block">'+response[index].rating+'</span><span class="reviewcount" style="display: inline-block;">&nbsp('+response[index].reviewcount+')</span></div></td></tr>';
-}  
-
-
-//$("#bestdoctortable").append(str);
-//checkbdContainer();
-
-}
+              str+='<div class="col-md-4 col-sm-6" data-href="doctor_profile.html?id='+response[index].doctor_id;
+                  str+='"><div class="team-thumb wow fadeInUp" data-wow-delay="'+delay+'s"><img src="data:image/png;base64,'+response[index].doctor_photo+'" class="img-responsive" alt=""><div class="team-info"><h3>'+response[index].docname+'</h3><p><span class="stars" style="display: inline-block">'+response[index].rating+'</span><span class="reviewcount" style="display: inline-block;">&nbsp('+response[index].reviewcount+')</span></p><div class="team-contact-info"><p><i class="fa fa-phone"></i>'+response[index].phone+'</p><p><i class="fa fa-home"></i>'+response[index].placename+'</p></div></div></div></div>';
+               delay=delay+0.2;
+               //<span class="rating" style="display:inline-block">'+response[index].rating+'&nbsp&nbsp</span>
+          }
+     }
+$("#bestdoctors").empty();
+$("#bestdoctors").append(str);
+checkbdContainer();
     },
         error: function(error) {
             console.log(error);
@@ -479,7 +355,7 @@ $.fn.stars = function() {
 
 
           function searchResults(){
-              console.log("inside search results function in index");
+              //console.log("inside search results function in index");
               var dataVal = {};
               dataVal.docnameVal=$('#docname').val();
               dataVal.specialityVal =$('#speciality').val();
@@ -491,25 +367,8 @@ $.fn.stars = function() {
               '&genderVal='+dataVal.genderVal;     
           }
 
-          function changeLanguage(){
-            var data ={};
-            data.language=$('#language').val();
-              $.ajax({
-                  type: 'POST',
-                  data: JSON.stringify(data),
-                  contentType: "application/json",
-                  dataType:'xml',
-                  url: '/languageFile',                  
-                  success: function(response){
-                  //document.getElementById("bestrateddoctor").innerHTML =$(response).find("bestrateddoctor")[0].childNodes[0].nodeValue;
-                  document.getElementById("searchbtn").innerHTML =$(response).find("search")[0].childNodes[0].nodeValue;
-                  
-              },
-                  error: function(error) {
-                      console.log(error);
-                   }
-              });
-          }
+
+
 
      </script>
 

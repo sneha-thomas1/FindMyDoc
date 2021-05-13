@@ -47,6 +47,13 @@
 [data-href] {
     cursor: pointer;
 }
+label {
+    font-weight: normal !important;
+  }
+
+.btn-success:before {
+  background: grey;
+}
 
 </style>
 </head>
@@ -73,7 +80,7 @@
                                       <div class="form-content">
                                         <div class="row">
                                              <div class="col-md-6">
-                                                  <h3>Quick Search</h3>
+                                                  <h3 id="quicksearch">Quick Search</h3>
                                              </div>
                                            </div>
                                           <div class="row">
@@ -101,7 +108,7 @@
                                           </div>
                                         <div class="row">
                                              <div class="col-md-6">
-                                                  <button id="searchbtn" type="button" class="btn-success" onclick="searchResults()"></button>
+                                                  <button id="searchbtn" type="button" class="btn-success" onclick="searchResults()">Search</button>
                                              </div>
                                            </div>
                                       </div>
@@ -139,6 +146,7 @@
      <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
      <script src="https://unpkg.com/@google/markerclustererplus@4.0.1/dist/markerclustererplus.min.js"></script>
      <script>
+      var languageFile;
           function getParameterByName(name, url = window.location.href) {
               name = name.replace(/[\[\]]/g, '\\$&');
               var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
@@ -156,7 +164,7 @@
 
             sessionStorage.removeItem('location');
             sessionStorage.removeItem('doctor_id');
-            changeLanguage();
+            //changeLanguage();
             geoFindMe();
             var latitude=sessionStorage.getItem('latitude');
             var longitude=sessionStorage.getItem('longitude');
@@ -169,17 +177,17 @@
 
             if(docNameVal)
             {
-              console.log("docVal="+docNameVal);
+              //console.log("docVal="+docNameVal);
               document.getElementById('docname').value = docNameVal;
             }
             if(genderVal)
             {
-              console.log("gender="+genderVal);
+              //console.log("gender="+genderVal);
               document.getElementById('gender').value = genderVal;
             }
             if(zipVal)
             {
-              console.log("zip="+zipVal);
+              //console.log("zip="+zipVal);
               document.getElementById('zipcode').value = zipVal;
             }
             if(docNameVal||genderVal||zipVal||specURLVal)
@@ -200,16 +208,11 @@
                          allstr+='<option value="All" selected>Speciality-All</option>';
                          for(let index = 0; index < response.length; index++) {
                               str+='<option value="'+response[index].speciality+'">'+response[index].speciality+'</option>';} 
-                         /*$("#bdspeciality").empty();
-                         $("#bdspeciality").append(str);
-                         bestDoctors();*/
                          allstr+=str;
-                         console.log(allstr);
                          $("#speciality").empty();
                          $("#speciality").append(allstr);
                          if(specURLVal)
                          {
-                           console.log(specURLVal);
                            document.getElementById('speciality').value = specURLVal;
                          }
                          if(isQueryStringPresent)
@@ -223,6 +226,7 @@
           }
 
           function calcRoute(lat1, lon1, lat2, lon2) {
+            alert(lat1);
           var directionsService = new google.maps.DirectionsService();
           var start = new google.maps.LatLng(lat1, lon1);
           var end = new google.maps.LatLng(lat2, lon2);
@@ -247,20 +251,6 @@
           });
           }
 
-     function openPage(pageName,elmnt) {
-       var i, tabcontent, tablinks;
-       tabcontent = document.getElementsByClassName("tabcontent");
-       for (i = 0; i < tabcontent.length; i++) {
-         tabcontent[i].style.display = "none";
-       }
-       tablinks = document.getElementsByClassName("tablinks");
-       for (i = 0; i < tablinks.length; i++) {
-         tablinks[i].className = tablinks[i].className.replace(" active", "");
-       }
-       document.getElementById(pageName).style.display = "block";
-       elmnt.currentTarget.className += " active";
-       
-     }
 
 
 
@@ -268,7 +258,7 @@ var pageNum=1;
 function searchResults(){
   document.getElementById('docsearchresults').innerHTML='';
   var data ={};
-    console.log("inside function");
+    //console.log("inside function");
     data.docname=$('#docname').val();
     data.speciality=$('#speciality').val();
     data.zipcode=$('#zipcode').val();
@@ -280,12 +270,9 @@ function searchResults(){
         dataType:'json',
         url: '/getdoctordetails?'+ $.param({ page: pageNum }),    
         success: function(response){
-          console.log(response);
           responselength=Object.keys(response).length;
-          //alert(responselength);
           locations = [];
        if(responselength > 1){
-         //alert(response["pagination"].totalrows);
         window.docsearchdetails=response;
 
         for(let count = 0; count < (responselength-1); count++) {
@@ -295,8 +282,10 @@ function searchResults(){
         var distanceArray;
         //console.log("First index val: "+locations[0].lat);
         //console.log("Origin; "+origin1)
+        //alert(origin1);
         sessionStorage.setItem('location',locations);
         const service = new google.maps.DistanceMatrixService();
+        //alert(origin1);
         service.getDistanceMatrix(
           {
             origins: [origin1],
@@ -315,13 +304,13 @@ function searchResults(){
                 //alert(distanceArray);
                 sessionStorage.setItem('distanceArray',JSON.stringify(distanceArray));
                 var str='';
-                str+='<label style="font-size: 25px;">Search results</label>&nbsp&nbsp&nbsp<a href="javascript:initMap()">Show in Map</a>&nbsp&nbsp&nbsp<a id="clearsearch" style="border-left:solid;padding-left: 5px;" href="javascript:clearSelection();">Clear Search</a><div class="docdetails"><table id="doctorlist" style="width: 100%;"><tbody><tr><td align="left">';
+                str+='<label style="font-size: 25px;" id="searchresults">Search Results</label>&nbsp&nbsp&nbsp<a href="javascript:initMap()" id="showinmap">Show in Map</a>&nbsp&nbsp&nbsp<a id="clearsearch" style="border-left:solid;padding-left: 5px;" href="javascript:clearSelection();" id="clearsearch">Clear Search</a><div class="docdetails"><table id="doctorlist" style="width: 100%;"><tbody><tr><td align="left">';
                 if(pageNum!=1){
-                str+='<a href="javascript:prevPage();">Prev</a>&nbsp&nbsp';};
+                str+='<a href="javascript:prevPage();" id="prev">Prev</a>&nbsp&nbsp';};
                 if (response["pagination"].next != null){
-                str+='<a href="javascript:nextPage();">Next</a>';}
-                str+='</td><td align="right">Showing ';
-                str+=response["pagination"].current*response["pagination"].perPage-4+' to ';
+                str+='<a href="javascript:nextPage();" id="next">Next</a>';}
+                str+='</td><td align="right"><label id="showing">Showing </label>&nbsp;';
+                str+=response["pagination"].current*response["pagination"].perPage-4+'&nbsp;<label id="to">to</label>&nbsp;';
                 lastrow=response["pagination"].current*response["pagination"].perPage;
                  if(lastrow>response["pagination"].totalrows){
                 str+=response["pagination"].totalrows;
@@ -329,46 +318,38 @@ function searchResults(){
               else{
                 str+=response["pagination"].current*response["pagination"].perPage;
               }
-                str+=' of '+response["pagination"].totalrows+' entries</td></tr>';
+                str+='&nbsp;<label id="of">of</label>&nbsp;'+response["pagination"].totalrows+'&nbsp;<label>entries</label></td></tr>';
+
                 for(let index = 0; index < (responselength-1); index++) {
+                  var rating="";
+                  var review="";
+                  if (!response[index].rating){
+                     rating='0';
+                     review='0'
+                   }
+                   else{
+                     rating=response[index].rating;
+                     review=response[index].reviewcount;
+                   }
                   str+='<tr style="border:ridge;" data-href="doctor_profile.html?id='+response[index].doctor_id;
-                  //doc_image=response[index].doctor_photo;
                   str+='"><td>';
-                    //alert(typeof(response[index].doctor_photo));
                     if(!response[index].doctor_photo){
-                      //alert("image");
                     str+='<img style="padding-top: 2px;" src="images/default.jpg" type="image/jpg" width= "100" height="90">';
                     }
                     else{
-
-                    console.log('Base64 String - ', response[index].doctor_photo);
-  
-                    //data:image/png;base64,
                     str+='<img style="padding-top: 2px;" src="data:image/png;base64,'+response[index].doctor_photo+'" type="image/png" width= "100" height="90">';
                     }
-                    str+='</td><td><div class="docname"><b>'+response[index].docname+'</b></div><div class="docplace"><span id="placename">'+response[index].docplace+'</span></div><div class="distance"><span id="distance">'+calculatemiles(distanceArray[index].distance.text)+',</span>&nbsp<span>'+distanceArray[index].duration.text+'</span></div><b><div class="docrating"  id="searchdocrating"><span class="rating" style="display: inline-block">';
-                  if (!response[index].rating){
-                  str+='0';}
-                  else{
-                  str+=response[index].rating;
-                  }
-                str+='&nbsp&nbsp</span><span class="sstars" style="display: inline-block">';
-                if (!response[index].rating){
-                  str+='0';}
-                  else{
-                  str+=response[index].rating;
-                  }
-                  str+='</span><span class="reviewcount" style="display: inline-block;">&nbsp(';
-                  if (!response[index].reviewcount){
-                  str+='0';}
-                  else{
-                  str+=response[index].reviewcount;
-                  }
+                    str+='</td><td><div class="docname"><b>'+response[index].docname+'</b></div><div class="docplace"><span id="placename">'+response[index].docplace+'</span></div><div class="distance"><span id="distance">'+calculatemiles(distanceArray[index].distance.text)+',</span>&nbsp<span>'+distanceArray[index].duration.text+'</span></div><b><div class="docrating"  id="searchdocrating"><span class="sstars" style="display: inline-block">'+rating;
+                    str+='</span><span class="reviewcount" style="display: inline-block;">&nbsp('+review;
                   str+=')</span></div></td></tr>';
       }  
       str+='</tbody></table></div>';
       document.getElementById('docsearchresults').innerHTML+=str;
       checkContainer();
+      if( $('.docsearchresults').text().length >26){
+        changesearchlanguage(); 
+        }
+      
       
                 }
               }
@@ -412,61 +393,7 @@ const milesfactor = 0.621371;
             return miles;
 }
 
-function bestDoctors(){
-  var data ={};
-  data.speciality=$('#bdspeciality').val();
-    $.ajax({
-        type: 'POST',
-        data: JSON.stringify(data),
-        contentType: "application/json",
-        dataType:'json',
-        url: '/bestDoctors',                  
-        success: function(response){
-//alert("bd response");
-          var str='';
-          $("#bestdoctortable").empty();
-          responselength=Object.keys(response).length;
-       if(responselength > 0){
-        //alert("bd response length");
-          for(let index = 0; index < responselength; index++) {
-           // alert("best doctors");
-            str+='<tr  style="border:ridge;" data-href="doctor_profile.html?id='+response[index].doctor_id;
-            str+='"><td>';
-              if(!response[index].doctor_photo){
-                str+='<img style="padding-top: 2px;" src="images/default.jpg" type="image/jpg" width= "100" height="90">';
-                }
-                else{
-                  console.log('Base64 String - ', response[index].doctor_photo);
-                  //data:image/png;base64,
-                  str+='<img style="padding-top: 2px;" src="data:image/png;base64,"'+response[index].doctor_photo+'" type="image/png" width= "100" height="90">';
-                  }
-            str+='</td><td><div class="docname"><b>'+response[index].docname+'</b></div><div class="docplace"><span id="placename">'+response[index].placename+'</span></div><div class="bdocrating" id="bdocrating"><span class="rating" style="display:inline-block">'+response[index].rating+'&nbsp&nbsp</span><span class="stars" style="display: inline-block">'+response[index].rating+'</span><span class="reviewcount" style="display: inline-block;">&nbsp('+response[index].reviewcount+')</span></div></td></tr>';
-}  
 
-$("#bestdoctortable").append(str);
-checkbdContainer();
-
-}
-    },
-        error: function(error) {
-            console.log(error);
-         }
-    });
-  
-}
-
-function checkbdContainer(){
-
-    $('span.stars').stars();
-    $('*[data-href]').on('click', function() {
-        position=$(this).data("href").indexOf('?');
-      newurl=$(this).data("href").substring(0,position);
-      doctor_id=$(this).data("href").substring($(this).data("href").indexOf('=')+1);
-      sessionStorage.setItem("doctor_id",doctor_id);
-      //alert(newurl);alert(doctor_id);
-        window.location = newurl;
-    });
-}
 /// display star rating
 
 function checkContainer () {
@@ -518,6 +445,7 @@ function geoFindMe() {
 
   function error() {
     //status.textContent = 'Unable to retrieve your location';
+    origin1 = new google.maps.LatLng(37.33680612064239, -121.88138356319237);
   }
 
   if(!navigator.geolocation) {
@@ -553,11 +481,14 @@ var infowindow =  new google.maps.InfoWindow({});
     imagePath:
       "https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m",
   });
-for (count = 0; count < window.docsearchdetails.length; count++) {
-     alert(window.docsearchdetails.length);
-  google.maps.event.addListener(markers[count], 'click', (function (marker, count) {
+
+//alert(Object.keys(docsearchdetails).length);
+//alert(origin1);
+for (count = 0; count < Object.keys(docsearchdetails).length-1; count++) {
+  google.maps.event.addListener(markers[count], 'click', 
+    (function (marker, count) {
       return function () {
-        infowindow.setContent("<div><b>"+docsearchdetails[count].docname+"</b><br>"+docsearchdetails[count].address+"<br>"+docsearchdetails[count].city+"<br>"+docsearchdetails[count].docplace+"<br>"+docsearchdetails[count].zip+"<br><a href='#' onclick='calcRoute(37.7683909618184, -122.51089453697205,"+docsearchdetails[count].latitude+","+docsearchdetails[count].longitude+")'>Get Directions</a></div");
+        infowindow.setContent("<div><b>"+docsearchdetails[count].docname+"</b><br>"+docsearchdetails[count].address+"<br>"+docsearchdetails[count].city+"<br>"+docsearchdetails[count].docplace+"<br>"+docsearchdetails[count].zip+"<br><a href='#' onclick='calcRoute("+origin1.lat()+", "+origin1.lng()+","+docsearchdetails[count].latitude+","+docsearchdetails[count].longitude+")'>Get Directions</a></div");
         infowindow.open(map, marker);
       }
     })(markers[count], count));
@@ -581,9 +512,9 @@ document.getElementById('speciality').selectedIndex=0;
 }
 
 
-function changeLanguage(){
-  var data ={};
-  data.language=$('#language').val();
+function changeLanguage(language){
+ /* var data ={};
+  data.language=language;
     $.ajax({
         type: 'POST',
         data: JSON.stringify(data),
@@ -591,17 +522,58 @@ function changeLanguage(){
         dataType:'xml',
         url: '/languageFile',                  
         success: function(response){
-        //document.getElementById("bestrateddoctor").innerHTML =$(response).find("bestrateddoctor")[0].childNodes[0].nodeValue;
+          //sessionStorage.setItem('language',$('#language').val());
+          languageFile=$(response);
+        document.getElementById("ahome").innerHTML =$(response).find("home")[0].childNodes[0].nodeValue;
+        document.getElementById("asearchdoctors").innerHTML =$(response).find("searchdoctors")[0].childNodes[0].nodeValue;
+        document.getElementById("asymptomschecker").innerHTML =$(response).find("symptomschecker")[0].childNodes[0].nodeValue;
+        document.getElementById("anews").innerHTML =$(response).find("news")[0].childNodes[0].nodeValue;
+        document.getElementById("acontact").innerHTML =$(response).find("contact")[0].childNodes[0].nodeValue;
+        document.getElementById("alogin").innerHTML =$(response).find("login")[0].childNodes[0].nodeValue;
+        document.getElementById("welcome").innerHTML =$(response).find("welcometofindmydoc")[0].childNodes[0].nodeValue;
         document.getElementById("searchbtn").innerHTML =$(response).find("search")[0].childNodes[0].nodeValue;
-        
+        document.getElementById("quicksearch").innerHTML =$(response).find("quicksearch")[0].childNodes[0].nodeValue;
+        document.getElementById("contactinfo").innerHTML =$(response).find("contactinfo")[0].childNodes[0].nodeValue;
+        document.getElementById("latestnews").innerHTML =$(response).find("latestnews")[0].childNodes[0].nodeValue;
+        document.getElementById("openinghours").innerHTML =$(response).find("openinghours")[0].childNodes[0].nodeValue;
+        document.getElementById("mon").innerHTML =$(response).find("mon")[0].childNodes[0].nodeValue;
+        document.getElementById("sat").innerHTML =$(response).find("sat")[0].childNodes[0].nodeValue;
+        document.getElementById("sun").innerHTML =$(response).find("sun")[0].childNodes[0].nodeValue;
+        document.getElementById("dept").innerHTML =$(response).find("dept")[0].childNodes[0].nodeValue;
+        document.getElementById("pol").innerHTML =$(response).find("pol")[0].childNodes[0].nodeValue;
+        document.getElementById("car").innerHTML =$(response).find("car")[0].childNodes[0].nodeValue;
+        document.getElementById("vac").innerHTML =$(response).find("vac")[0].childNodes[0].nodeValue;
+        document.getElementById("covid").innerHTML =$(response).find("covid")[0].childNodes[0].nodeValue;
+        if( $('.docsearchresults').text().length >26){
+        changesearchlanguage(); 
+        }  
     },
         error: function(error) {
             console.log(error);
          }
     });
-  
+  */
 
 }
+
+function changesearchlanguage(){
+ /* 
+  document.getElementById("searchresults").innerHTML =languageFile.find("searchresults")[0].childNodes[0].nodeValue;
+  document.getElementById("clearsearch").innerHTML =languageFile.find("clearsearch")[0].childNodes[0].nodeValue;
+  document.getElementById("showinmap").innerHTML =languageFile.find("showinthemap")[0].childNodes[0].nodeValue;
+  if(document.getElementById("prev")){
+    document.getElementById("prev").innerHTML =languageFile.find("previous")[0].childNodes[0].nodeValue;
+  }
+  if(document.getElementById("next")){
+    document.getElementById("next").innerHTML =languageFile.find("next")[0].childNodes[0].nodeValue;
+  }
+  document.getElementById("showing").innerHTML =languageFile.find("showing")[0].childNodes[0].nodeValue;
+  document.getElementById("to").innerHTML =languageFile.find("to")[0].childNodes[0].nodeValue;
+  document.getElementById("of").innerHTML =languageFile.find("of")[0].childNodes[0].nodeValue;
+  document.getElementById("entries").innerHTML =languageFile.find("entries")[0].childNodes[0].nodeValue;
+  */
+}
+
      </script>
 
 </body>

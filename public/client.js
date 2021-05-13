@@ -109,6 +109,16 @@ myInput.onkeyup = function () {
     document.getElementById("progress").value = progress;
 }
 
+//display password
+
+function show_password() {
+    var x = document.getElementById("pwd");
+    if (x.type === "password") {
+        x.type = "text";
+    } else {
+        x.type = "password";
+    }
+}
 
 //validate password is not same as USER ID
 function pwd_userid_check() {
@@ -129,6 +139,9 @@ function validate_pwd() {
 
     if (a != b) {
         alert("Passwords are not matching");
+        document.getElementById("userid").value = "";
+        document.getElementById("pwd").value = "";
+        document.getElementById("vpsw").value = "";
 
     }
 
@@ -137,26 +150,32 @@ function validate_pwd() {
 
 function insert()
 {
-    var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function ()
-    {
-        if (this.readyState == 4 && this.status == 200)
-        {
+    if (document.getElementById("userid").value.length == 0 || document.getElementById("pwd").value.length == 0 || document.getElementById("vpsw").value.length == 0) {
+        document.getElementById("emptyfield").innerHTML = 'Username and password can not be empty';
+    }
+    else {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
 
-            var result = this.responseText;
-            alert(result);
+                var result = this.responseText;
+                alert(result);
+                console.log(result);
+                //history.previous
+                window.location.href = "javascript: history.back()";
+                //window.location.href = "Success.html";
+            }
 
         }
 
+        var user_id = document.getElementById("userid").value;
+        var pwd = document.getElementById("pwd").value;
+
+
+        xhttp.open("POST", "/insert", true);
+        xhttp.setRequestHeader("Content-Type", "application/json");
+        xhttp.send('{"user_id":"' + user_id + '","password":"' + pwd + '"}');
     }
-
-    var user_id = document.getElementById("userid").value;
-    var pwd = document.getElementById("pwd").value;
-
-
-    xhttp.open("POST", "/insert", true);
-    xhttp.setRequestHeader("Content-Type", "application/json");
-    xhttp.send('{"user_id":"' + user_id + '","password":"' + pwd + '"}');
 
 }
 
@@ -167,19 +186,24 @@ function login()
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200)
         {
-            var result = this.responseText;
-            if (result == 'yes') {
+            var result = JSON.parse(this.responseText);
+            console.log(result);
+            
 
-                //window.location.href = '/Success.html';
 
-                self.location = '/Success.html'
-                alert(result)
-            }
+            result.forEach((row) => {
+                if (row.success == '1') {
+                    console.log(row.success);
+                    window.location.href = "javascript: history.back()";
+                    sessionStorage.setItem("email", row.email);
 
-            else {
-                window.location.href = '/Password_validation.html';
-                alert(result);
-            }
+                }
+                else {
+                    alert('Invalid username or password');
+                   window.location.href = "Password_validation_incorrect_pwd.html";
+                   
+                }
+            });
         }
     }
 
@@ -193,35 +217,7 @@ function login()
 }
 
 
-/*function update()
-{
-    var xhttp = new XMLHttpRequest();
-
-    xhttp.onreadystatechange = function ()
-    {
-        if (this.readyState == 4 && this.status == 200)
-        {
-            var result = this.responseText;
-            alert(result);
-        }
-    }
-
-    var ht = document.getElementById("height").value;
-    var wt = document.getElementById("weight").value;
-    var temp = document.getElementById("temp").value;
-    var pulse = document.getElementById("pulse").value;
-    var bp = document.getElementById("bp").value;
-    var meds = document.getElementById("medications").value;
-    var drnotes = document.getElementById("drnotes").value;
-
-    xhttp.open("POST", "/update", true);
-    xhttp.setRequestHeader("Content-Type", "application/json");
-    xhttp.send('{ "height":"'+ht+'", "weight":"'+wt+'", "temp":"'+temp+'", "pulse":"'+pulse+'", "bp":"'+bp+'", "medications":"'+meds+'", "drnotes":"'+drnotes+'" }');
-}
-
-
 /*function reset_demo() {
-
     document.getElementById("firstname").value = "";
     document.getElementById("lastname").value="";
     document.getElementById("gender").value ="Decline to answer";
@@ -231,4 +227,3 @@ function login()
     image.src = "";
     document.getElementById("file").value = "";
 }*/
-

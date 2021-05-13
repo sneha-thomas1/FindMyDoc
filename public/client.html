@@ -223,6 +223,7 @@ span.sstars span {
   var latitude=sessionStorage.getItem('latitude');
   var longitude=sessionStorage.getItem('longitude');
   origin1=new google.maps.LatLng(latitude,longitude);
+  alert(origin1);
 })
 
 function doctorSpeciality(){
@@ -509,6 +510,7 @@ function geoFindMe() {
 
   function error() {
     //status.textContent = 'Unable to retrieve your location';
+    alert("no geo data");
   }
 
   if(!navigator.geolocation) {
