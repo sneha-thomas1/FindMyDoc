@@ -15,19 +15,19 @@ app.use(bodyParser.json());
 // First you need to create a connection to the database
 //CLEARDB_DATABASE_URL: mysql://b3e5380a3e4879:6681aeee@us-cdbr-east-03.cleardb.com/heroku_e6b5955ec516405?reconnect=true
 //mysql --host=us-cdbr-east-03.cleardb.com --user=b3e5380a3e4879 --password=6681aeee --reconnect heroku_e6b5955ec516405
-/*const db = mysql.createPool({
+const db = mysql.createPool({
   host: 'us-cdbr-east-03.cleardb.com',
   user: 'b3e5380a3e4879',
   password: '6681aeee',
   database: 'heroku_e6b5955ec516405'
-});*/
+});
 
-const db = mysql.createPool({
+/*const db = mysql.createPool({
   host: 'localhost',
   user: 'root',
   password: '1111',
   database: 'findmydoctor'
-});
+});*/
 
 app.use('/static',express.static(__dirname + "/public"))
 app.use('/css',express.static(__dirname + "/public/css"))
