@@ -426,7 +426,7 @@ for (i = 0; i < rows.length; i++) {
                             First_Name: rows[i].First_Name,
                             Last_Name: rows[i].Last_Name,
                             doctor_photo: docphoto,
-
+                            description:rows[i].description,
                             Phone: rows[i].Phone,
                             Address_1: rows[i].Address_1,
                             City: rows[i].City,
