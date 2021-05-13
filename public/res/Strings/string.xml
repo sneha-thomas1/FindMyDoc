@@ -2,4 +2,37 @@
 <language>
 <bestrateddoctor>Best Rated Doctors</bestrateddoctor>
 <search>Search</search>
+<home>Home</home>
+<searchdoctors>Search Doctors</searchdoctors>
+<symptomschecker>Symptoms Checker</symptomschecker>
+<news>News</news>
+<contact>Contact</contact>
+<login>Login</login>
+<welcometofindmydoc>Welcome to FindMyDoc</welcometofindmydoc>
+<quicksearch>Quick Search</quicksearch>
+<searchresults>Search Results</searchresults>
+<clearsearch>Clear Search</clearsearch>
+<showinthemap>Show in Map</showinthemap>
+<previous>Prev</previous>
+<next>Next</next>
+<showing>Showing </showing>
+<to> to </to>
+<of> of </of>
+<entries> entries</entries>
+<contactinfo>Contact Info</contactinfo>
+<latestnews>Latest News</latestnews>
+<openinghours>Opening Hours</openinghours>
+<mon>Monday - Friday 06:00 AM - 10:00 PM</mon>
+<sat>Saturday 09:00 AM - 08:00 PM</sat>
+<sun>Sunday Closed</sun>
+<dept>Departments</dept>
+<pol>Insurance Policy</pol>
+<car>Careers</car>
+<vac>Get Vaccinated!</vac>
+<covid>Covid-19 Dashboard</covid>
+<genderall>Gender-All</genderall>
+<male>Male</male>
+<female>Female</female>
+<specall>Speciality-All</specall>
 </language>
+

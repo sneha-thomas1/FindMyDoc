@@ -2,4 +2,46 @@
 <language>
 <bestrateddoctor>Doctores mejor calificados</bestrateddoctor>
 <search>Buscar</search>
+<home>Casa</home>
+<searchdoctors>Buscar doctores</searchdoctors>
+<symptomschecker>Comprobador de síntomas</symptomschecker>
+<news>Noticias</news>
+<contact>Contacto</contact>
+<login>Acceso</login>
+<welcometofindmydoc>Bienvenida a FindMyDoc</welcometofindmydoc>
+<quicksearch>Búsqueda rápida</quicksearch>
+<searchresults>Resultados de la búsqueda</searchresults>
+<clearsearch>Borrar búsqueda</clearsearch>
+<showinthemap>Mostrar en mapa</showinthemap>
+<previous>Previo</previous>
+<next>Próximo</next>
+<showing>Mostrando</showing>
+<to>a</to>
+<of>de</of>
+<entries>entradas</entries>
+<contactinfo>Datos de contacto</contactinfo>
+<latestnews>Últimas noticias</latestnews>
+<openinghours>Horario de apertura</openinghours>
+<mon>Lunes - Viernes 06:00 AM - 10:00 PM</mon>
+<sat>Sábado 09:00 AM - 08:00 PM</sat>
+<sun>Domingo cerrado</sun>
+<dept>Departamentos</dept>
+<pol>Póliza de seguros</pol>
+<car>Carreras</car>
+<vac>¡Vacúnate!</vac>
+<covid>Panel de control Covid-19</covid>
+<genderall>Género-Todo</genderall>
+<male>Masculino</male>
+<female>Mujer</female>
+<specall>Especialidad-Todos</specall>
+<!--<cdchref>https://espanol.cdc.gov/coronavirus/2019-ncov/vaccines/your-vaccination.html</cdchref>
+<scvacc>https://www.cdc.gov/coronavirus/2019-ncov/vaccines/your-vaccination.html<scvacc>
+<dash>https://covid19.sccgov.org/dashboards</dash>
+<dashb>https://covid19.sccgov.org/dashboards</dashb>
+
+<cdchref>https://www.cdc.gov/coronavirus/2019-ncov/vaccines/your-vaccination.html</cdchref>
+<scvacc>https://www.cdc.gov/coronavirus/2019-ncov/vaccines/your-vaccination.html<scvacc>
+<dash>https://covid19.sccgov.org/dashboards</dash>
+<dashb>https://covid19.sccgov.org/dashboards</dashb>-->
 </language>
+
