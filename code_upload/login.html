@@ -1,11 +1,45 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
+    
+    <!-- Font Awesome Icon Library -->
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="shortcut icon" href="images/logo.ico">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="author" content="Tooplate">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/animate.css">
+    <link rel="stylesheet" href="css/owl.carousel.css">
+    <link rel="stylesheet" href="css/owl.theme.default.min.css">
+    
+    <!-- MAIN CSS -->
+    <link rel="stylesheet" href="css/tooplate-style.css">
+    <link rel="stylesheet" href="fonts/material-design-iconic-font/css/material-design-iconic-font.min.css">
+    <link rel="stylesheet" href="css/style_search.css">
+    
     <style>
         /* Style all input fields */
+        body{
+            margin: 0;
+            padding: 0;
+            font-family: montserrat;
+           
+            height: 100vh;
+            overflow: hidden;
+        }
         input {
-            width: 30%;
+            width: 40%;
             padding: 12px;
             border: 1px solid #ccc;
             border-radius: 4px;
@@ -16,51 +50,158 @@
         }
             /* Style the submit button */
             input[type=button] {
-                width: 20%;
-                background-color: #4CAF50;
-                color: Black;
+                width: 90%;
+                float: center;
+                height: 40px;
+                border:1px solid;
+                background: rgb(115, 243, 192);
+                border-radius: 25px;
+                font-size: 16px;
+                color: rgb(48, 48, 49);
+                cursor: pointer;
+                outline: none;
     
             }
+            input[type=button]:hover {
+                border-color: #d8da8e;
+                transition: 0.5s;
+            }
+        progress {
+            width: 20%;
+            padding: 16px;
+            float: inherit;
+           
+           
+        }
 
         label {
             display: inline-block;
             width: 210px;
-            text-align: right;
+            text-align: center;
         }
 
-     
-        /* Style the container for inputs */
-        .container {
-            background-color: #f1f1f1;
+        textarea {
+            width: 50%;
             padding: 20px;
         }
+        /* Style the container for inputs */
 
+        .container h2{
+            text-align: center;
+            padding: 0 0 20px 0;
+            border-bottom: 1px solid silver;
+        }
+        .container form{
+            padding: 0 40px;
+            box-shadow: border-box;
+        }
+        /* The message box is shown when the user clicks on the password field */
+        #message {
+            text-align: left;
+            display: none;
+            background: #f1f1f1;
+            color: #000;
+            position: relative;
+            padding: 20px;
+            margin-top: 10px;
+        }
 
+            #message p {
+                padding: 10px 35px;
+                font-size: 18px;
+            }
+
+        /* Add a green text color and a checkmark when the requirements are right */
+        .valid {
+            color: green;
+        }
+
+            .valid:before {
+                position: relative;
+                left: -35px;
+                content: "✔";
+            }
+
+        /* Add a red text color and an "x" when the requirements are wrong */
+        .invalid {
+            color: red;
+        }
+
+            .invalid:before {
+                position: relative;
+                left: -35px;
+                content: "✖";
+            }
     </style>
 </head>
-<body>
+<body id="top" data-spy="scroll" data-target=".navbar-collapse" data-offset="50">
+    <!-- PRE LOADER -->
+    <section class="preloader">
+        <div class="spinner">
 
-    <h3>Registration</h3>
+            <span class="spinner-rotate"></span>
+
+        </div>
+    </section>
+
+    <div id="header"></div>
+
+    <!-- HOME -->
+    <!-- ABOUT -->
+
+    
     <div class="container">
+        <h2>Log In</h2>
         <form id="registration" action="/action_page.php">
             <label for="userid">User ID:</label>
-            <input type="text" id="userid" name="userid" required>
+            <input type="text" id="userid" name="userid" placeholder="User Id" required>
             <br>
             <label for="pwd">Password:</label>
-            <input type="password" id="pwd" name="pwd" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required>
+            <input type="password" id="pwd" name="pwd" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" placeholder="Enter Password" required>
             <br>
             <input type="checkbox" style="font-size:x-large;"onclick="show_password()">
             <label style="left:1px">Show Password</label>
             <br>
-            <input type="button" value="Login" onclick="login()">
-            <input type="button" value="Cancel" onclick="document.location='Password_validation.html'">
-            <br>
-            <input type="button" value="Sign up" onclick="document.location='Password_validation.html'">
-            <input type="button" value="Forgor USER ID/Password?" onclick="document.location='Success.html'">
+            <input type="button" value="Login" onclick="login()" style="width:180px;height:40px;">
+            <input type="button" value="Sign up" onclick="document.location='Password_validation.html'" style="width:180px;height:40px;">
+            <input type="button" value="Cancel" onclick="document.location='Password_validation.html'" style="width:180px;height:40px;" >
+            <input type="button" value="Forgor Password?" onclick="document.location='Success.html'" style="width:180px;height:40px;">
         </form>
     </div>
 
     <script src="client.js"></script>
-
+    
+    <!-- FOOTER -->
+    <div id="footer"></div>
+    
+    <!-- SCRIPTS -->
+    <script src="js/jquery.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.sticky.js"></script>
+    <script src="js/jquery.stellar.min.js"></script>
+    <script src="js/wow.min.js"></script>
+    <script src="js/smoothscroll.js"></script>
+    <script src="js/owl.carousel.min.js"></script>
+    <script src="js/custom.js"></script>
+    
+    
+    <!--   Core JS Files   -->
+    <script src="js/jquery-2.2.4.min.js" type="text/javascript"></script>
+    <script src="js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="js/jquery.bootstrap.wizard.js" type="text/javascript"></script>
+    
+    <!--  Plugin for the Wizard -->
+    <script src="js/gsdk-bootstrap-wizard.js"></script>
+    
+    <!--  More information about jquery.validate here: http://jqueryvalidation.org/  -->
+    <script src="js/jquery.validate.min.js"></script>
+    
+    
+    <script>
+        $(document).ready(function () {
+            $("#header").load("header.html");
+            $("#footer").load("footer.html");
+        })
+    </script>
 </body>
 </html>
