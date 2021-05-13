@@ -99,7 +99,7 @@ app.post('/getdoctordetails', function (req, res) {
     ratingsql ='select avg(rating) as rating,count(rating_id) as reviewcount,doctor_id from ratings where 1 = 1';
     if (gender !== 'All') {
         doctorsql += ' and Gender = ?';
-        console.log(gender.substring(0,1));
+        //console.log(gender.substring(0,1));
         params.push(gender.substring(0,1));
       }
     if (zipcode !== '') {
@@ -112,7 +112,7 @@ app.post('/getdoctordetails', function (req, res) {
       var firstname;
       var lastname;
       var middlename;
-      console.log(namearray);
+      //console.log(namearray);
       if (namearray.length==3){
       firstname=namearray[0];
       lastname=namearray[2];
@@ -134,7 +134,7 @@ app.post('/getdoctordetails', function (req, res) {
       doctorsql += " and (`First_Name` Like '%" + firstname + "%' or `Middle_Name` like '%" + middlename + "%' or `Last_Name` Like '%" + lastname + "%')";
 
     }
-    console.log(firstname); console.log(lastname);console.log(middlename);
+    //console.log(firstname); console.log(lastname);console.log(middlename);
      //doctorsql += " and (`First Name` Like '%" + docname + "%' or `Middle Name` like '%" + docname + "%' or `Last Name` Like '%" + docname + "%')";
       //doctorsql += " and (`First_Name` Like '%" + firstname + "%' or `Middle_Name` like '%" + middlename + "%' or `Last_Name` Like '%" + lastname + "%')";
 
@@ -147,7 +147,7 @@ app.post('/getdoctordetails', function (req, res) {
       }
     var countquery='select count(*) as numRows from ('+doctorsql+') as dd left join ('+ratingsql+' group by doctor_id)as r on r.doctor_id=dd.doctor_id';
     var sqlquery='select dd.doctor_id,dd.doctor_photo,r.reviewcount,round(r.rating,1) as rating,dd.firstname,dd.middlename,dd.lastname,dd.address1,dd.address2,dd.city,dd.county,dd.state,dd.zip,dd.longitude,dd.latitude from ('+doctorsql+') as dd left join ('+ratingsql+' group by doctor_id)as r on r.doctor_id=dd.doctor_id order by rating desc LIMIT '+limit;
-    console.log(sqlquery);
+    //console.log(sqlquery);
     var query=db.query(countquery,params,function(err,rows){
     //console.log(query);
     if(err){
@@ -156,7 +156,7 @@ app.post('/getdoctordetails', function (req, res) {
         else{
           numRows = rows[0].numRows;
     numPages = Math.ceil(numRows / numPerPage);
-    console.log('number of pages:', numPages);
+    //console.log('number of pages:', numPages);
     var query1=db.query(sqlquery,params,function(err,rows){
     //console.log(query);
     if(err){
@@ -211,7 +211,7 @@ if (rows[i].doctor_photo===null){
                       err: 'queried page ' + page + ' is >= to maximum page number ' + numPages
                     }
                   }
-                 console.log(toSendRows);
+                 //console.log(toSendRows);
                  res.json(toSendRows);
               }
             })
@@ -225,7 +225,7 @@ if (rows[i].doctor_photo===null){
 
 function exitHandler(options, err) {
   if (options.shutdownDb) {
-    console.log('shutdown mysql connection');
+    //console.log('shutdown mysql connection');
     connection.end();
   }
   if (err) console.log(err.stack);
@@ -237,8 +237,7 @@ function exitHandler(options, err) {
 //get bestdoctordetails
 app.post('/bestDoctors',function(req,res){
     const speciality =  req.body.speciality;
-    console.log("speciality :::: " + speciality);
-    var query=db.query("SELECT dd.doctor_id,dd.doctor_photo,dd.docname,dd.placename,dd.latitude,dd.longitude,round(r.rating,1) as rating,r.reviewcount FROM (select avg(rating) as rating,count(rating_id) as reviewcount,doctor_id from ratings group by doctor_id order by rating desc LIMIT 5) as r join (select doctor_id,doctor_photo,CONCAT_WS('',`First_Name`,' ',`Middle_Name`,' ',`Last_Name`) as docname,CONCAT_WS('',County,',',State) as placename,latitude,longitude,phone from doctor_details where `Sub_Specialty`=?) as dd on r.doctor_id=dd.doctor_id ;",[speciality],function(err,rows){
+    var query=db.query("SELECT dd.doctor_id,dd.doctor_photo,dd.docname,dd.placename,dd.phone,dd.sub_specialty,round(r.rating,1) as rating,r.reviewcount FROM (select avg(rating) as rating,count(rating_id) as reviewcount,doctor_id from ratings group by doctor_id order by rating desc LIMIT 3) as r join (select doctor_id,sub_specialty,doctor_photo,CONCAT_WS('',`First_Name`,' ',`Middle_Name`,' ',`Last_Name`) as docname,CONCAT_WS('',County,', ',State) as placename,phone from doctor_details where `Sub_Specialty`=?) as dd on r.doctor_id=dd.doctor_id ;",[speciality],function(err,rows){
     if(err){
         throw err;
     }
@@ -260,13 +259,13 @@ app.post('/bestDoctors',function(req,res){
                     placename  : rows[i].placename,
                     rating  : rows[i].rating,
                     reviewcount  : rows[i].reviewcount,
-                    latitude :rows[i].latitude,
-                    longitude :rows[i].longitude
+                    phone :rows[i].phone,
+                    specialty :rows[i].sub_specialty
                   };
                   //toSendRows.push(newRow);
                   toSendRows[i]=newRow;
                 }
-                console.log(toSendRows);
+                //console.log(toSendRows);
         res.send(toSendRows);
               }
 })
@@ -279,7 +278,7 @@ app.get('/doctorspeciality',function(req,res){
         throw err;
     }
         else{
-        console.log(rows);
+        //console.log(rows);
         res.send(rows);
               }
    })
@@ -288,14 +287,14 @@ var sessionID = 'peqEuYBeagkQy0dH';
 var baseURL = 'https://api.endlessmedical.com/v1/dx';
 
 app.get('/symptoms_output',function(req,res){
-  console.log("post api");
+  //console.log("post api");
   var initSessionURL = baseURL+'/InitSession';
   let rawdata = fs.readFileSync('SymptomsOutput.json');
   let symptoms_list = JSON.parse(rawdata);
   res.send(symptoms_list);
   request.get(initSessionURL, {json: true}, function(err, res, body) {
       if (!err && res.statusCode === 200) {
-        console.log("Session Id: "+res.body.SessionID);
+        //console.log("Session Id: "+res.body.SessionID);
         sessionID = res.body.SessionID;
         var termsURL = baseURL + '/AcceptTermsOfUse?SessionID='+sessionID+'&passphrase=I%20have%20read,%20understood%20and%20I%20accept%20and%20agree%20to%20comply%20with%20the%20Terms%20of%20Use%20of%20EndlessMedicalAPI%20and%20Endless%20Medical%20services.%20The%20Terms%20of%20Use%20are%20available%20on%20endlessmedical.com';
         request.post(termsURL, {json: true}, function(err, res, body) {
@@ -311,7 +310,7 @@ app.get('/symptoms_output',function(req,res){
 function updateFeature(urls, idx) {
   request.post(urls[idx], {json: true}, function(err, res, body) {
       if (!err && res.statusCode === 200) {
-          console.log("sent feature: "+urls[idx]);
+          //console.log("sent feature: "+urls[idx]);
           if(idx+1 < urls.length)
             updateFeature(urls, idx+1);
       }
@@ -321,7 +320,7 @@ function updateFeature(urls, idx) {
 }
 
 app.post('/update_symptoms',function(req,res){
-  console.log(req.body);
+  //console.log(req.body);
   var featureURLs = [];
   for (var key in req.body) {
     var featureURL = baseURL + '/UpdateFeature?SessionID='+sessionID+'&name='+key+'&value='+req.body[key];
@@ -332,10 +331,10 @@ app.post('/update_symptoms',function(req,res){
 
 app.get('/analyze_symptoms',function(reqMain,resMain){
   var analyzeURL = baseURL + '/Analyze?SessionID='+sessionID+'&NumberOfResults=10';
-  console.log(analyzeURL);
+  //console.log(analyzeURL);
   request.get(analyzeURL, {json: true}, function(err, res, body) {
     if (!err && res.statusCode === 200) {
-        console.log("Analysis: "+JSON.stringify(res.body.Diseases));
+        //console.log("Analysis: "+JSON.stringify(res.body.Diseases));
         resMain.send(JSON.stringify(res.body.Diseases));
     }
   });
@@ -358,64 +357,100 @@ app.post('/languageFile',function(req,res){
 app.get('/login.html',function(req,res){
         res.statusCode = 200;
         res.setHeader('Content-type', 'text/html');
-        fs.createReadStream('./login.html').pipe(res);
+        fs.createReadStream(__dirname + '/public/login.html').pipe(res);
 })
 app.get('/Password_validation.html',function(req,res){
         res.statusCode = 200;
         res.setHeader('Content-type', 'text/html');
-        fs.createReadStream('./Password_validation.html').pipe(res);
+        fs.createReadStream(__dirname + '/public/Password_validation.html').pipe(res);
 })
 app.get('/doctor_profile.html',function(req,res){
         res.statusCode = 200;
         res.setHeader('Content-type', 'text/html');
-        fs.createReadStream('./doctor_profile.html').pipe(res);
+        fs.createReadStream(__dirname + '/public/doctor_profile.html').pipe(res);
 })
 app.get('/Password_validation_incorrect_pwd.html',function(req,res){
         res.statusCode = 200;
         res.setHeader('Content-type', 'text/html');
-        fs.createReadStream('./Password_validation_incorrect_pwd.html').pipe(res);
+        fs.createReadStream(__dirname + '/public/Password_validation_incorrect_pwd.html').pipe(res);
 })
 app.get('/rating.html',function(req,res){
         res.statusCode = 200;
         res.setHeader('Content-type', 'text/html');
-        fs.createReadStream('./rating.html').pipe(res);
+        fs.createReadStream(__dirname + '/public/rating.html').pipe(res);
 })
 app.get('/Success.html',function(req,res){
         res.statusCode = 200;
         res.setHeader('Content-type', 'text/html');
-        fs.createReadStream('./Success.html').pipe(res);
+        fs.createReadStream(__dirname + '/public/Success.html').pipe(res);
 })
 app.get('/client.js',function(req,res){
 
         res.statusCode = 200;
         res.setHeader('Content-type', 'text/js');
-        fs.createReadStream('./client.js').pipe(res);
+        fs.createReadStream(__dirname + '/public/client.js').pipe(res);
 })
 app.get('/doctor_profile.js',function(req,res){
 
         res.statusCode = 200;
         res.setHeader('Content-type', 'text/js');
-        fs.createReadStream('./doctor_profile.js').pipe(res);
+        fs.createReadStream(__dirname + '/public/doctor_profile.js').pipe(res);
 })
 app.get('/rating.js',function(req,res){
 
         res.statusCode = 200;
         res.setHeader('Content-type', 'text/js');
-        fs.createReadStream('./rating.js').pipe(res);
+        fs.createReadStream(__dirname + '/public/rating.js').pipe(res);
 })
+
+
+  app.post('/open_profile',function(req,res){
+        res.statusCode = 200;
+        res.setHeader('Content-Type', 'application/json');
+         db.query('select * from doctor_details where doctor_id=?', [req.body.Doc_id], function (error, rows, fields) {
+                if (error) {
+                    console.log(`Error occured in review submition!`);
+                }
+                else
+                    //var response_result = JSON.stringify(results);
+
+                var toSendRows = {};
+for (i = 0; i < rows.length; i++) {
+                        if (rows[i].doctor_photo === null) {
+                            docphoto = rows[i].doctor_photo;
+                             }
+                        else {
+                            docphoto = Buffer.from(rows[i].doctor_photo).toString('base64');
+                        }
+                        var newRow = {
+                            First_Name: rows[i].First_Name,
+                            Last_Name: rows[i].Last_Name,
+                            doctor_photo: docphoto,
+
+                            Phone: rows[i].Phone,
+                            Address_1: rows[i].Address_1,
+                            City: rows[i].City,
+                            State: rows[i].State,
+                            Zip: rows[i].Zip,
+                            Latitude: rows[i].Latitude,
+                            Longitude: rows[i].Longitude
+                        };
+//toSendRows.push(newRow);
+                        toSendRows[i] = newRow;
+                    }
+
+                    res.send(toSendRows);
+                 
+            });
+           
+    })
+
 app.post('/insert',function(req,res){
         res.statusCode = 200;
         res.setHeader('Content-Type', 'text/plain');
 
-        var content = '';
-        req.on('data', function (data) {
-            content += data;
 
-            var obj = JSON.parse(content);
-            var local_con = con.getConnection();
-            
-
-            local_con.query('INSERT INTO login_details (email,password) VALUES (?,?)', [obj.user_id, obj.password], function (error, results, fields) {
+            db.query('INSERT INTO login_details (email,password) VALUES (?,?)', [req.body.user_id, req.body.password], function (error, results, fields) {
                 if (error) {
                     console.log(`Error occured in registration!`);
                 }
@@ -423,24 +458,17 @@ app.post('/insert',function(req,res){
                     console.log("Registration successful!");
             });
 
-            local_con.end();
-            res.end("Registration successful!");
+            res.send("Registration successful!");
         });
 
-})
+   
 app.post('/login',function(req,res){
         res.statusCode = 200;
         res.setHeader('Content-Type', 'application/json');
 
-        var content = '';
-        req.on('data', function (data) {
+       
 
-            content += data;
-            var obj = JSON.parse(content);
-
-            var local_con = con.getConnection();
-
-            local_con.query('SELECT count(*) as success,email FROM login_details where email=? and password=?', [obj.user_id, obj.password], function (error, results1, fields) {
+            db.query('SELECT count(*) as success,email FROM login_details where email=? and password=?', [req.body.user_id, req.body.password], function (error, results1, fields) {
                 if (error) {
                     console.log(`Error occured in login!`);
                 }
@@ -448,32 +476,21 @@ app.post('/login',function(req,res){
 
                     var response_result = JSON.stringify(results1);
                     console.log(response_result);
-                    res.end(response_result);
+                    res.send(response_result);
                 }
 
             });
         
 
-            local_con.end();
         });
-})
+    
 
-app.post('/submit_review',function(req,res){
+    app.post('/submit_review',function(req,res){
         res.statusCode = 200;
         res.setHeader('Content-Type', 'text/plain');
 
-        var content = '';
-        req.on('data', function (data) {
-            content += data;
 
-            var obj = JSON.parse(content);
-            var local_con = con.getConnection();
-
-            console.log(obj.Doc_id);
-            console.log(obj.Review);
-            console.log(obj.Rating);
-
-            local_con.query('INSERT INTO ratings (doctor_id,review,rating,reviewer_name) VALUES (?,?,?,?)', [obj.Doc_id, obj.Review, obj.Rating,obj.Reviewer_name], function (error, results, fields) {
+            db.query('INSERT INTO ratings (doctor_id,review,rating,reviewer_name) VALUES (?,?,?,?)', [req.body.Doc_id, req.body.Review, req.body.Rating,req.body.Reviewer_name], function (error, results, fields) {
                 if (error) {
                     console.log(`Error occured in review submition!`);
                 }
@@ -481,139 +498,72 @@ app.post('/submit_review',function(req,res){
                     console.log("Review submitted successful!");
             });
 
-            //res.sendFile("sample_rating.html");
-            local_con.end();
-            res.end("Review submitted successfully!");
+            
+            res.send("Review submitted successfully!");
         });
 
-})
-
-app.post('/open_profile',function(req,res){
+   
+        app.post('/display_review',function(req,res){
         res.statusCode = 200;
         res.setHeader('Content-Type', 'application/json');
 
-        var content = '';
-        req.on('data', function (data) {
-            content += data;
 
-            var obj = JSON.parse(content);
-            var local_con = con.getConnection();
-
-            //console.log(obj.Doc_id);
-
-            local_con.query('select * from doctor_details where doctor_id=?', [obj.Doc_id], function (error, results, fields) {
+            db.query('select * from ratings where doctor_id=? and rating >=3 limit 5', [req.body.Doc_id], function (error, results, fields) {
                 if (error) {
                     console.log(`Error occured in review submition!`);
                 }
                 else
                     var response_result = JSON.stringify(results);
-                    res.end(response_result);
-
-                     //console.log(response_result);
-                 
-            });
-           
-
-            //res.sendFile("sample_rating.html");
-            local_con.end();
-           // res.end("Review submitted successfully!");
-        });
-
-})
-
-app.post('/display_review',function(req,res){
-        res.statusCode = 200;
-        res.setHeader('Content-Type', 'application/json');
-
-        var content = '';
-        req.on('data', function (data) {
-            content += data;
-
-            var obj = JSON.parse(content);
-            var local_con = con.getConnection();
-
-            console.log(obj.Doc_id);
-
-            local_con.query('select * from ratings where doctor_id=? and rating >=3', [obj.Doc_id], function (error, results, fields) {
-                if (error) {
-                    console.log(`Error occured in review submition!`);
-                }
-                else
-                    var response_result = JSON.stringify(results);
-                res.end(response_result);
+                res.send(response_result);
 
                 console.log(response_result);
 
             });
-
-            //res.sendFile("sample_rating.html");
-            local_con.end();
-            // res.end("Review submitted successfully!");
+            
         });
 
-})
-
-app.post('/average_review',function(req,res){
+   
+ app.post('/average_review',function(req,res){
         res.statusCode = 200;
         res.setHeader('Content-Type', 'application/json');
 
-        var content = '';
-        req.on('data', function (data) {
-            content += data;
 
-            var obj = JSON.parse(content);
-            var local_con = con.getConnection();
-
-            console.log(obj.Doc_id);
-
-            local_con.query('select avg(rating) as avg_rate from ratings where doctor_id=?', [obj.Doc_id], function (error, results, fields) {
+            db.query('select avg(rating) as avg_rate from ratings where doctor_id=?', [req.body.Doc_id], function (error, results, fields) {
                 if (error) {
                     console.log(`Error occured in average calculation!`);
                 }
                 else
                 var response_result = JSON.stringify(results);
-                res.end(response_result);
+                res.send(response_result);
 
                 console.log(response_result);
 
             });
 
-            local_con.end();
-            // res.end("Review submitted successfully!");
         });
 
-})  
-app.post('/display_review_analysis',function(req,res){
+ app.post('/display_review_analysis',function(req,res){
         res.statusCode = 200;
         res.setHeader('Content-Type', 'application/json');
 
-        var content = '';
-        req.on('data', function (data) {
-            content += data;
+        
 
-            var obj = JSON.parse(content);
-            var local_con = con.getConnection();
-
-            console.log(obj.Doc_id);
-
-            local_con.query('select count(*) as input,rating ,doctor_id from ratings where doctor_id=? group by rating order by rating desc;', [obj.Doc_id], function (error, results, fields) {
+            db.query('select count(*) as input,rating ,doctor_id from ratings where doctor_id=? group by rating order by rating desc;', [req.body.Doc_id], function (error, results, fields) {
                 if (error) {
                     console.log(`Error occured in average calculation!`);
                 }
                 else
                     var response_result = JSON.stringify(results);
-                res.end(response_result);
+                res.send(response_result);
 
                 console.log(response_result);
 
             });
 
-            local_con.end();
-            // res.end("Review submitted successfully!");
+       
         });
 
-    })
-
+  
 //rasika code end
 
 const PORT = process.env.PORT || 3000;
