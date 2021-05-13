@@ -19,6 +19,19 @@ function page_load() {
     display_review();   
 }
 
+function check_login() {
+
+    var found = sessionStorage.getItem("found");
+    if (found == null) {
+        window.location.href = 'login.html';
+    }
+    else {
+        window.location.href = 'rating.html';
+
+    }
+
+}
+
 function open_profile() {
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
@@ -247,7 +260,7 @@ function average_review() {
                 var num = 0;
                 let black = 0;
 
-                for (i = 0; i < Math.floor(row.avg_rate); i++) {
+                for (i = 1; i <= Math.floor(row.avg_rate); i++) {
 
                     
                     var span_obj = document.createElement("span");
@@ -255,26 +268,33 @@ function average_review() {
                     span_obj.style = "font-size:28px;cursor:pointer;color:orange";
                     element.appendChild(span_obj);
                     num = i;
+                    console.log('num in for loop ' + num);
                 }
                 var fraction = row.avg_rate - num;
+               
                 if (fraction) {
                     var span_obj = document.createElement("span");
                     span_obj.setAttribute("class", "fa fa-star-half-o");
                     span_obj.style = "font-size:28px;cursor:pointer;color:orange";
                     element.appendChild(span_obj);
                     black = 5 - Math.ceil(row.avg_rate);
+                    console.log('fraction inside ' + fraction);
                 }
                 else
                 {
-                   black = 5 - Math.floor(row.avg_rate);
+                    black = 5 - Math.floor(row.avg_rate);
+                    
                 }
+                console.log('black ' + black);
 
-                for (i = 0; i < black; i++) {
-                    var span_obj = document.createElement("span");
-                    span_obj.setAttribute("class", "fa fa-star-o");
-                    span_obj.style = "font-size:28px;cursor:pointer;border:orange";
-                    element.appendChild(span_obj);
-                }
+            
+                    for (i = 0; i < black; i++) {
+                        var span_obj = document.createElement("span");
+                        span_obj.setAttribute("class", "fa fa-star-o");
+                        span_obj.style = "font-size:28px;cursor:pointer;border:orange";
+                        element.appendChild(span_obj);
+                    }
+                
                 //console.log(avg_star.avg_rate)
             });
          

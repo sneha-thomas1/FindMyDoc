@@ -194,8 +194,9 @@ function login()
             result.forEach((row) => {
                 if (row.success == '1') {
                     console.log(row.success);
+                    sessionStorage.setItem("found", "true");
                     window.location.href = "javascript: history.back()";
-                    sessionStorage.setItem("email", row.email);
+                    
 
                 }
                 else {
