@@ -16,9 +16,7 @@ function page_load() {
     open_profile();
     average_review();
     display_review_analysis();
-    display_review();
-  
-    
+    display_review();   
 }
 
 function open_profile() {
@@ -38,27 +36,13 @@ function open_profile() {
                 document.getElementById("address").innerHTML = 'Address : '+ row.Address_1 + ', ' + row.City + ', ' + row.State + ', ' + row.Zip;
                 document.getElementById("description").innerHTML = row.description;
 
-                //console.log(row.image.data);
-               
-                let TYPED_ARRAY = new Uint8Array(row.image.data);
-                const STRING_CHAR = String.fromCharCode.apply(null, TYPED_ARRAY);
-
-                let base64String = btoa(STRING_CHAR);
-
-
-
-
-               
-
-                console.log(base64String);
-
-                document.getElementById("doctorphoto").src = ;
+                document.getElementById("doctorphoto").src = row.doctor_photo;
 
                 // Get the location of the doctor
-
                 const doc_loc = { lat: row.Latitude, lng: row.Longitude };
 
                 // The map, centered at doctor location
+
                 const map = new google.maps.Map(document.getElementById("map"), {
                     zoom: 4,
                     center: doc_loc,
@@ -92,12 +76,7 @@ function display_review() {
             //console.log(doctor_review);
 
 
-
-
-            doctor_review.forEach((row) => {
-
-
-                
+            doctor_review.forEach((row) => {            
 
                 var element = document.getElementById("review_display");
 
@@ -212,10 +191,10 @@ function display_review() {
                     span_obj.style = "font-size:25px;cursor:pointer;color:orange";
                     element.appendChild(span_obj);
                 }
-                var para = document.createElement("p");
-                var node = document.createTextNode(row.rating); //+ "\n" + row.reviewer_name + "\n" + row.review);
-                para.appendChild(node);
-                element.appendChild(para);
+                //var para = document.createElement("p");
+                //var node = document.createTextNode(row.rating); //+ "\n" + row.reviewer_name + "\n" + row.review);
+                //para.appendChild(node);
+                //element.appendChild(para);
 
                 var para = document.createElement("p");
                 var node = document.createTextNode(row.reviewer_name); //+ "\n" + row.reviewer_name + "\n" + row.review);

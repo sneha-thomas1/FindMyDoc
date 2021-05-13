@@ -26,6 +26,7 @@ function submit_review() {
 
             var result = this.responseText;
             alert(result);
+            window.location.href = "javascript: history.back()";
 
         }
 
@@ -40,6 +41,9 @@ function submit_review() {
 
     if (true == anonymous_bool) {
         reviewer_name = "Anonymous";
+    }
+    if (document.getElementById("comment").value.length == 0) {
+        review = 'No review comments';
     }
     
 

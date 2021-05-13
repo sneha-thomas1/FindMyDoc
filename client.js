@@ -150,27 +150,32 @@ function validate_pwd() {
 
 function insert()
 {
-    var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function ()
-    {
-        if (this.readyState == 4 && this.status == 200)
-        {
+    if (document.getElementById("userid").value.length == 0 || document.getElementById("pwd").value.length == 0 || document.getElementById("vpsw").value.length == 0) {
+        document.getElementById("emptyfield").innerHTML = 'Username and password can not be empty';
+    }
+    else {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
 
-            var result = this.responseText;
-            alert(result);
-            console.log(result);
-            window.location.href = "Success.html";
+                var result = this.responseText;
+                alert(result);
+                console.log(result);
+                //history.previous
+                window.location.href = "javascript: history.back()";
+                //window.location.href = "Success.html";
+            }
+
         }
 
+        var user_id = document.getElementById("userid").value;
+        var pwd = document.getElementById("pwd").value;
+
+
+        xhttp.open("POST", "/insert", true);
+        xhttp.setRequestHeader("Content-Type", "application/json");
+        xhttp.send('{"user_id":"' + user_id + '","password":"' + pwd + '"}');
     }
-
-    var user_id = document.getElementById("userid").value;
-    var pwd = document.getElementById("pwd").value;
-
-
-    xhttp.open("POST", "/insert", true);
-    xhttp.setRequestHeader("Content-Type", "application/json");
-    xhttp.send('{"user_id":"' + user_id + '","password":"' + pwd + '"}');
 
 }
 
