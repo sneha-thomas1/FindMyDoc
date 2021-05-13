@@ -34,6 +34,7 @@
 <male>Masculino</male>
 <female>Mujer</female>
 <specall>Especialidad-Todos</specall>
+ <asignout>Desconectar</asignout>
 <!--<cdchref>https://espanol.cdc.gov/coronavirus/2019-ncov/vaccines/your-vaccination.html</cdchref>
 <scvacc>https://www.cdc.gov/coronavirus/2019-ncov/vaccines/your-vaccination.html<scvacc>
 <dash>https://covid19.sccgov.org/dashboards</dash>
