@@ -11,8 +11,7 @@
           .profile {
                width: 100%;
                height: 300%;
-               border: 2px outset black;
-               background-color: lightcyan;
+               background-color: white;
                text-align: left;
           }
 
@@ -169,15 +168,17 @@
      <!-- ABOUT -->
      <section id="doctor_section">
      <div class="profile" id="profile">
-          <h1 id="Name"></h1>
+          <h3 id="Name"></h3>
           <img id="doctorphoto" />
+          <br>
           <h3 id="phone_no"></h3>
-          <p id="address"></p>
-          <p id="description"></p>
+          <p id="address" style="font-size:18px"></p>
+          <p id="description" style="font-size:18px"></p>
+           <br>
           <div id="map"></div>
           <br>
           <br>
-          <button onclick="check_login()" type="button" style="margin-top:10px;margin-left:5px;">Rate this
+          <button onclick="check_login()" type="button" class="btn-success" style="margin-top:10px;margin-left:5px;">Rate this
                doctor</button>
           <!--<a style="position: absolute; left: 10px; font:caption" href="rating.html">Rate This Doctor</a>-->
           <br>
@@ -250,6 +251,7 @@
                     <div id="rate1"></div>
                </div>
           </div>
+          <br>
           <h3 style="position: absolute;left: 10px;">Reviews:</h3>
           <br>
           <br>
