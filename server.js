@@ -237,7 +237,7 @@ function exitHandler(options, err) {
 //get bestdoctordetails
 app.post('/bestDoctors',function(req,res){
     const speciality =  req.body.speciality;
-    var query=db.query("SELECT dd.doctor_id,dd.doctor_photo,dd.docname,dd.placename,dd.phone,dd.sub_specialty,round(r.rating,1) as rating,r.reviewcount FROM (select avg(rating) as rating,count(rating_id) as reviewcount,doctor_id from ratings group by doctor_id order by rating desc LIMIT 3) as r join (select doctor_id,sub_specialty,doctor_photo,CONCAT_WS('',`First_Name`,' ',`Middle_Name`,' ',`Last_Name`) as docname,CONCAT_WS('',County,', ',State) as placename,phone from doctor_details where `Sub_Specialty`=?) as dd on r.doctor_id=dd.doctor_id ;",[speciality],function(err,rows){
+    var query=db.query("SELECT dd.doctor_id,dd.doctor_photo,dd.docname,dd.placename,dd.phone,dd.sub_specialty,round(r.rating,1) as rating,r.reviewcount FROM (select avg(rating) as rating,count(rating_id) as reviewcount,doctor_id from ratings group by doctor_id order by rating desc) as r join (select doctor_id,sub_specialty,doctor_photo,CONCAT_WS('',`First_Name`,' ',`Middle_Name`,' ',`Last_Name`) as docname,CONCAT_WS('',County,', ',State) as placename,phone from doctor_details where `Sub_Specialty`=?) as dd on r.doctor_id=dd.doctor_id  LIMIT 3;",[speciality],function(err,rows){
     if(err){
         throw err;
     }
